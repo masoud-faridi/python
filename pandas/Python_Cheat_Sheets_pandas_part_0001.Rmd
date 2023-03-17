@@ -1,0 +1,76 @@
+---
+title: "Python Cheat Sheets"
+output: 
+  html_document:
+    code_folding: show
+    theme:
+      bg: "#202123"
+      fg: "#B8BCC2"
+      primary: "#EA80FC"
+      secondary: "#00DAC6"
+      base_font:
+        google: Prompt
+      heading_font:
+        google: Proza Libre
+---
+
+```{r setup, include=FALSE}
+if (requireNamespace("thematic")) 
+  thematic::thematic_rmd(font = "auto")
+library(reticulate)
+#reticulate::use_python("C:/Program Files/Python310/python.exe")
+```
+
+## <span style="color:orange"> Pandas Cheat Sheet - part 0001    </span> {.tabset .tabset-pills}
+
+
+### Choosing a file
+
+#### <span style="color:orange"> Choosing a file in Python with simple Dialog: easygui  </span>
+```{python}
+#To install:
+# pip install easygui
+import easygui
+filename =easygui.fileopenbox()
+print(filename)
+#easygui.egdemo()
+
+```
+#### <span style="color:orange"> Choosing a file in Python with simple Dialog: plyer  </span>
+```{python}
+#To install:
+# pip install plyer
+import plyer 
+filename =plyer.filechooser.open_file()
+print(filename)
+```
+
+### dplython
+
+```{python}
+#To install:
+# pip install dplython
+```
+
+#### <span style="color:orange">  1 </span>
+
+### siuba
+
+```{python}
+#To install:
+# pip install siuba
+```
+
+#### <span style="color:orange">  1 </span>
+
+
+
+
+
+
+
+
+## Contact us
+
+Contact me at masoudfaridi@modares.ac.ir or masoud1faridi@gmail.com
+
