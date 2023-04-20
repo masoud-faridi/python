@@ -1,0 +1,312 @@
+---
+title: "dplyr"
+output: pdf_document
+date: '2022-08-03'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+## The across function
+
+
+
+ 
+
+
+### across
+
+* across() makes it easy to apply the same transformation to multiple columns, allowing you to use select() semantics inside in "data-masking" functions like summarise() and mutate().
+
+* if_any() and if_all() are used to apply the same predicate function to a selection of columns and combine the results into a single logical vector.
+
+* across() supersedes the family of dplyr "scoped variants" like summarise_at(), summarise_if(), and summarise_all() and therefore these functions will not be implemented in poorman.
+across: Apply a function (or functions) across multiple columns
+
+
+### Usage
+
+* across(.cols = everything(), .fns = NULL, ..., .names = NULL)
+
+* if_any(.cols, .fns = NULL, ..., .names = NULL)
+
+* if_all(.cols, .fns = NULL, ..., .names = NULL)
+
+### Arguments
+
+#### .fns
+Functions to apply to each of the selected columns. Possible values are:
+
+* NULL, to returns the columns untransformed.
+
+* A function, e.g. mean.
+
+* A lambda, e.g. ~ mean(.x, na.rm = TRUE)
+
+* A list of functions/lambdas, e.g. list(mean = mean, n_miss = ~ sum(is.na(.x))
+
+Within these functions you can use cur_column() and cur_group() to access the current column and grouping keys respectively.
+
+#### ...
+Additional arguments for the function calls in .fns.
+
+#### .names
+character(n). Currently limited to specifying a vector of names to use for the outputs.
+
+#### cols, .cols
+<poor-select> Columns to transform. Because across() is used within functions like summarise() and mutate(), you can't select or compute upon grouping variables.
+
+
+#### Value
+
+* across() returns a data.frame with one column for each column in .cols and each function in .fns.
+
+* if_any() and if_all() return a logical vector.
+
+
+
+### How to use across
+
+There are four columns and I want to quickly get the mean of these columns for each category. First, here’s how I might do this without across:
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+  summarise(
+    Sepal.Length = mean(Sepal.Length, na.rm = TRUE),
+    Sepal.Width = mean(Sepal.Width, na.rm = TRUE),
+    Petal.Width = mean(Petal.Width, na.rm = TRUE),
+    Petal.Length = mean(Petal.Length, na.rm = TRUE)
+    )
+```
+Which works fine. But imagine if instead of four columns there were 10 or 20 or 100! It would quickly get tedious to add a new line for each column. Here’s where across comes in:
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+  
+  summarise(across(c(Sepal.Length, Sepal.Width, Petal.Length,Petal.Width),mean,na.rm = TRUE))
+    
+```
+
+Much more efficient. We give across a vector of column names followed by the function (in this case mean) followed by any other arguments we want to apply to the function.
+
+
+
+
+
+### : 
+
+: for selecting a range of consecutive variables.
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+       summarise(across(c(Sepal.Length:Petal.Width), mean, na.rm = TRUE))
+    
+```
+### ! 
+
+! for taking the complement of a set of variables.
+```{r}
+iris  %>%
+  group_by(Species) %>%
+       summarise(across(!c(Petal.Width), mean, na.rm = TRUE))
+    
+```
+
+### & and | 
+
+& and |for selecting the intersection or the union of two sets of variables.
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+       summarise(across(ends_with('Length') & !c(Petal.Length, Petal.Width), mean, na.rm = TRUE))
+    
+```
+
+
+### c() 
+
+c() for combining selections.
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+  
+  summarise(across(c(Sepal.Length, Sepal.Width, Petal.Length,Petal.Width),mean,na.rm = TRUE))
+    
+```
+
+
+
+### starts_with()
+
+starts_with(): Starts with a prefix.
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+  
+  summarise(across(starts_with("S"),mean,na.rm = TRUE))
+    
+```
+### ends_with()
+
+ends_with(): Ends with a suffix.
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+  
+  summarise(across(ends_with("dth"),mean,na.rm = TRUE))
+    
+```
+### contains()
+
+contains(): Contains a literal string.
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+    summarise(across(contains('Length'),mean,na.rm = TRUE))
+```
+
+### matches()
+
+matches(): Matches a regular expression.
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+    summarise(across(matches('^(S|P)'),mean,na.rm = TRUE))
+```
+
+### num_range()
+
+num_range(): Matches a numerical range like x01, x02, x03.
+
+```{r}
+df <- as.data.frame(matrix(1:24, nrow = 3))
+df
+df %>% select(num_range("V", seq(1, 1000, by = 3)))
+```
+
+```{r}
+df <- data.frame(id=c("a","a","b"), tot_1=4:6, tot_2=8:10, tot_3=11:13, tot_4=33:35,tot_5=22:24)
+df
+df %>% group_by(id) %>%
+  mutate(across(.cols = num_range("tot_", seq(1, 5, by = 2)),mean,na.rm = TRUE))
+```
+
+
+```{r}
+df %>% group_by(id) %>%
+  summarise(across(.cols = num_range(prefix="tot_", range=seq(1, 5, by = 2)),mean,na.rm = TRUE))
+```
+
+### all_of() 
+
+all_of(): Matches variable names in a character vector. All names must be present, otherwise an out-of-bounds error is thrown.
+
+
+
+
+
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+    summarise(across(all_of(c('Sepal.Length','Sepal.Width','Petal.Length')),mean,na.rm = TRUE))
+```
+
+
+### any_of()
+
+any_of(): Same as all_of(), except that no error is thrown for names that don't exist.
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+    summarise(across(any_of(c('Sepal.Length','Sepal.Width','Petal.Length','Not_valid_name')),mean,na.rm = TRUE))
+```
+
+### where()
+
+where(): Applies a function to all variables and selects those for which the function returns TRUE.
+
+
+
+```{r}
+iris  %>%
+  group_by(Species) %>%
+       summarise(across(where(is.numeric), mean, na.rm = TRUE))
+    
+```
+
+
+
+
+## Using in-line functions with across
+
+Let’s look at an example of summarizing the columns using a custom function (rather than n_distinct()). I usually do this using the tilde-dot shorthand for inline functions. The notation works by replacing
+
+```{r}
+function(x) {
+  x + 10
+}
+```
+
+with
+
+```{r}
+~{.x + 10}
+
+```
+
+ ~ indicates that you have started an anonymous function, and the argument of the anonymous function can be referred to using .x  (or simply  . ). Unlike normal function arguments that can be anything that you like, the tilde-dot function argument is always .x.
+
+For instance, to identify how many missing values there are in every column, we could specify the inline function ~sum(is.na(.)), which calculates how many NA values are in each column (where the column is represented by .) and adds them up:
+
+```{r}
+dat<-data.frame(a=c(1,2,3,NA,NA,6),b=1:6,d=c(NA,2:6))
+dat
+dat %>%
+  summarise(across(everything(),  ~sum(is.na(.))))
+```
+
+
+```{r}
+dat<-data.frame(a=c(1:4),b=c(1:4)^2,d=c(1:4)^3)
+dat
+dat %>%
+  summarise(across(everything(),  ~ .x +10))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,13 +1,14 @@
 ---
 title: "Python Cheat Sheets"
-output: 
+output:
+  pdf_document: default
   html_document:
     code_folding: show
     theme:
-      bg: "#202123"
-      fg: "#B8BCC2"
-      primary: "#EA80FC"
-      secondary: "#00DAC6"
+      bg: '#202123'
+      fg: '#B8BCC2'
+      primary: '#EA80FC'
+      secondary: '#00DAC6'
       base_font:
         google: Prompt
       heading_font:
@@ -31,8 +32,8 @@ library(reticulate)
 #To install:
 # pip install easygui
 import easygui
-filename =easygui.fileopenbox()
-print(filename)
+#filename =easygui.fileopenbox()
+#print(filename)
 #easygui.egdemo()
 
 ```
@@ -40,10 +41,170 @@ print(filename)
 ```{python}
 #To install:
 # pip install plyer
-import plyer 
-filename =plyer.filechooser.open_file()
-print(filename)
+#import plyer 
+#filename =plyer.filechooser.open_file()
+#print(filename)
 ```
+
+
+```{r}
+#filename =file.choose()
+#print(filename)
+```
+
+### read csv and xlsx files
+
+#### <span style="color:orange">  csv </span>
+
+```{python}
+import pandas as pd
+#import easygui
+#filename = easygui.fileopenbox()
+filename = "G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris.csv"
+df1=pd.read_csv(filename)
+df1
+```
+
+
+```{python}
+#df1.dtypes
+#df1.head()
+#df1.tail(2)
+#df1.columns
+#df1.describe()
+#df1["Petal_Length"]
+#df1[0:2]
+df1[df1.Petal_Length==1.4]
+```
+
+#### <span style="color:orange">  xlsx </span>
+
+
+
+
+
+###  filter and select
+
+
+#### <span style="color:orange">  filter </span>
+
+
+```{python}
+pl=1.4
+qs="Petal_Length==@pl"
+df1.query(qs)
+```
+```{r}
+#filename = file.choose()
+filename = "G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris.csv"
+df1=read.csv(filename)
+head(df1)
+```
+
+```{python}
+pw=.3
+sp=["setosa","setosa1"]
+qs="Species in @sp"\
+ " and Petal_Width <= @pw"
+df1.query(qs)
+```
+
+```{r}
+library(dplyr)
+pw=.3
+sp=c("setosa","setosa1")
+df1 %>%
+  dplyr::filter(
+    Species %in% sp
+    ,Petal_Width <= pw           
+  )
+```
+
+#### <span style="color:orange">  select </span>
+
+```{python}
+cl=["Sepal_Length","Petal_Width"]
+df1[cl]
+```
+```{r}
+library(dplyr)
+cl=c("Sepal_Length","Petal_Width")
+df1%>% dplyr::select(all_of(cl))
+# df1%>% dplyr::select(Sepal_Length,Petal_Width)
+```
+
+### pivot/melt
+
+
+#### <span style="color:orange">  melt - pivot_longer </span>
+
+
+
+```{python}
+import pandas as pd
+df2 = pd.DataFrame({'A': {0: 'a', 1: 'b', 2: 'c'},
+                   'B': {0: 1, 1: 3, 2: 5},
+                   'C': {0: 2, 1: 4, 2: 6}})
+df2.melt(id_vars='A')
+df2.melt(id_vars='A', value_vars=['B','C'], var_name='BC', value_name='value')
+```
+```{r}
+library(dplyr)
+library(tidyr)
+df2 = data.frame(
+  A=c('a','b','c')
+  ,B=c(1,3,5)
+  ,C=c(2,4,6)
+  )
+df2 %>% 
+  pivot_longer(B:C,names_to = 'BC',values_to = 'value')
+```
+```{r}
+library(dplyr)
+library(tidyr)
+df2 = data.frame(
+  A=c('a', 'a','b', 'b', 'c','c')
+  ,B=c('A', 'B','A', 'B', 'A','B')
+  ,D=c( 1, 3, 5,7,9,11)
+  ,E=c(2, 4, 6,8,10,12)
+  )
+df2 %>%
+  tidyr::pivot_longer(cols = any_of(c('D','E')),names_to = "DE",values_to  = "value")
+```
+#### <span style="color:orange"> pivot_wider </span>
+
+```{python}
+import pandas as pd
+df2 = pd.DataFrame({'A': {0: 'a', 1: 'b', 2: 'c'},
+                   'B': {0: 1, 1: 3, 2: 5},
+                   'C': {0: 2, 1: 4, 2: 6}})
+#print(df2)
+df2_melt=df2.melt(id_vars='A', value_vars=['B','C'], var_name='BC', value_name='value')
+#print(df2_melt)
+df_pivot=df2_melt.pivot(index='A', columns=['BC'])#, values='value')
+df2_r = df_pivot.reset_index(None)
+df2_r.columns = ['A', 'B', 'C']
+print(df2_r)
+df2_r.columns=df2.columns.values
+print(df2.columns.values)
+print(df2_r)
+```
+```{r}
+library(dplyr)
+library(tidyr)
+df2 = data.frame(
+  A=c('a','b','c')
+  ,B=c(1,3,5)
+  ,C=c(2,4,6)
+)
+df2_melt<-df2 %>%
+  tidyr::pivot_longer(cols = any_of(c('B','C')),names_to = "BC",values_to  = "value")
+df_pivot <- df2_melt %>%
+  tidyr::pivot_wider(id_cols = A, names_from = BC,values_from = value )
+df_pivot
+```
+
+
 
 ### dplython
 

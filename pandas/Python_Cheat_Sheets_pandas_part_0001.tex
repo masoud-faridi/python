@@ -1,0 +1,817 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Python Cheat Sheets},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Python Cheat Sheets}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\hypertarget{pandas-cheat-sheet---part-0001}{%
+\subsection{\texorpdfstring{{ Pandas Cheat Sheet - part 0001
+}}{ Pandas Cheat Sheet - part 0001 }}\label{pandas-cheat-sheet---part-0001}}
+
+\hypertarget{choosing-a-file}{%
+\subsubsection{Choosing a file}\label{choosing-a-file}}
+
+\hypertarget{choosing-a-file-in-python-with-simple-dialog-easygui}{%
+\paragraph{\texorpdfstring{{ Choosing a file in Python with simple
+Dialog: easygui
+}}{ Choosing a file in Python with simple Dialog: easygui }}\label{choosing-a-file-in-python-with-simple-dialog-easygui}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#To install:}
+\CommentTok{\# pip install easygui}
+\ImportTok{import}\NormalTok{ easygui}
+\CommentTok{\#filename =easygui.fileopenbox()}
+\CommentTok{\#print(filename)}
+\CommentTok{\#easygui.egdemo()}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{choosing-a-file-in-python-with-simple-dialog-plyer}{%
+\paragraph{\texorpdfstring{{ Choosing a file in Python with simple
+Dialog: plyer
+}}{ Choosing a file in Python with simple Dialog: plyer }}\label{choosing-a-file-in-python-with-simple-dialog-plyer}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#To install:}
+\CommentTok{\# pip install plyer}
+\CommentTok{\#import plyer }
+\CommentTok{\#filename =plyer.filechooser.open\_file()}
+\CommentTok{\#print(filename)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#filename =file.choose()}
+\CommentTok{\#print(filename)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{read-csv-and-xlsx-files}{%
+\subsubsection{read csv and xlsx files}\label{read-csv-and-xlsx-files}}
+
+\hypertarget{csv}{%
+\paragraph{\texorpdfstring{{ csv }}{ csv }}\label{csv}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\CommentTok{\#import easygui}
+\CommentTok{\#filename = easygui.fileopenbox()}
+\NormalTok{filename }\OperatorTok{=} \StringTok{"G:}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{Python tutorial}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{pythontutorial}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{pythontutorial}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{iris.csv"}
+\NormalTok{df1}\OperatorTok{=}\NormalTok{pd.read\_csv(filename)}
+\NormalTok{df1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Sepal_Length  Sepal_Width  Petal_Length  Petal_Width    Species
+## 0             5.1          3.5           1.4          0.2     setosa
+## 1             4.9          3.0           1.4          0.2     setosa
+## 2             4.7          3.2           1.3          0.2     setosa
+## 3             4.6          3.1           1.5          0.2     setosa
+## 4             5.0          3.6           1.4          0.2     setosa
+## ..            ...          ...           ...          ...        ...
+## 145           6.7          3.0           5.2          2.3  virginica
+## 146           6.3          2.5           5.0          1.9  virginica
+## 147           6.5          3.0           5.2          2.0  virginica
+## 148           6.2          3.4           5.4          2.3  virginica
+## 149           5.9          3.0           5.1          1.8  virginica
+## 
+## [150 rows x 5 columns]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#df1.dtypes}
+\CommentTok{\#df1.head()}
+\CommentTok{\#df1.tail(2)}
+\CommentTok{\#df1.columns}
+\CommentTok{\#df1.describe()}
+\CommentTok{\#df1["Petal\_Length"]}
+\CommentTok{\#df1[0:2]}
+\NormalTok{df1[df1.Petal\_Length}\OperatorTok{==}\FloatTok{1.4}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Sepal_Length  Sepal_Width  Petal_Length  Petal_Width Species
+## 0            5.1          3.5           1.4          0.2  setosa
+## 1            4.9          3.0           1.4          0.2  setosa
+## 4            5.0          3.6           1.4          0.2  setosa
+## 6            4.6          3.4           1.4          0.3  setosa
+## 8            4.4          2.9           1.4          0.2  setosa
+## 12           4.8          3.0           1.4          0.1  setosa
+## 17           5.1          3.5           1.4          0.3  setosa
+## 28           5.2          3.4           1.4          0.2  setosa
+## 33           5.5          4.2           1.4          0.2  setosa
+## 37           4.9          3.6           1.4          0.1  setosa
+## 45           4.8          3.0           1.4          0.3  setosa
+## 47           4.6          3.2           1.4          0.2  setosa
+## 49           5.0          3.3           1.4          0.2  setosa
+\end{verbatim}
+
+\hypertarget{xlsx}{%
+\paragraph{\texorpdfstring{{ xlsx }}{ xlsx }}\label{xlsx}}
+
+\hypertarget{filter-and-select}{%
+\subsubsection{filter and select}\label{filter-and-select}}
+
+\hypertarget{filter}{%
+\paragraph{\texorpdfstring{{ filter }}{ filter }}\label{filter}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pl}\OperatorTok{=}\FloatTok{1.4}
+\NormalTok{qs}\OperatorTok{=}\StringTok{"Petal\_Length==@pl"}
+\NormalTok{df1.query(qs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Sepal_Length  Sepal_Width  Petal_Length  Petal_Width Species
+## 0            5.1          3.5           1.4          0.2  setosa
+## 1            4.9          3.0           1.4          0.2  setosa
+## 4            5.0          3.6           1.4          0.2  setosa
+## 6            4.6          3.4           1.4          0.3  setosa
+## 8            4.4          2.9           1.4          0.2  setosa
+## 12           4.8          3.0           1.4          0.1  setosa
+## 17           5.1          3.5           1.4          0.3  setosa
+## 28           5.2          3.4           1.4          0.2  setosa
+## 33           5.5          4.2           1.4          0.2  setosa
+## 37           4.9          3.6           1.4          0.1  setosa
+## 45           4.8          3.0           1.4          0.3  setosa
+## 47           4.6          3.2           1.4          0.2  setosa
+## 49           5.0          3.3           1.4          0.2  setosa
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#filename = file.choose()}
+\NormalTok{filename }\OtherTok{=} \StringTok{"G:}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{Python tutorial}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{pythontutorial}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{pythontutorial}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{iris.csv"}
+\NormalTok{df1}\OtherTok{=}\FunctionTok{read.csv}\NormalTok{(filename)}
+\FunctionTok{head}\NormalTok{(df1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pw}\OperatorTok{=}\FloatTok{.3}
+\NormalTok{sp}\OperatorTok{=}\NormalTok{[}\StringTok{"setosa"}\NormalTok{,}\StringTok{"setosa1"}\NormalTok{]}
+\NormalTok{qs}\OperatorTok{=}\StringTok{"Species in @sp"}\NormalTok{\textbackslash{}}
+ \StringTok{" and Petal\_Width \textless{}= @pw"}
+\NormalTok{df1.query(qs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Sepal_Length  Sepal_Width  Petal_Length  Petal_Width Species
+## 0            5.1          3.5           1.4          0.2  setosa
+## 1            4.9          3.0           1.4          0.2  setosa
+## 2            4.7          3.2           1.3          0.2  setosa
+## 3            4.6          3.1           1.5          0.2  setosa
+## 4            5.0          3.6           1.4          0.2  setosa
+## 6            4.6          3.4           1.4          0.3  setosa
+## 7            5.0          3.4           1.5          0.2  setosa
+## 8            4.4          2.9           1.4          0.2  setosa
+## 9            4.9          3.1           1.5          0.1  setosa
+## 10           5.4          3.7           1.5          0.2  setosa
+## 11           4.8          3.4           1.6          0.2  setosa
+## 12           4.8          3.0           1.4          0.1  setosa
+## 13           4.3          3.0           1.1          0.1  setosa
+## 14           5.8          4.0           1.2          0.2  setosa
+## 17           5.1          3.5           1.4          0.3  setosa
+## 18           5.7          3.8           1.7          0.3  setosa
+## 19           5.1          3.8           1.5          0.3  setosa
+## 20           5.4          3.4           1.7          0.2  setosa
+## 22           4.6          3.6           1.0          0.2  setosa
+## 24           4.8          3.4           1.9          0.2  setosa
+## 25           5.0          3.0           1.6          0.2  setosa
+## 27           5.2          3.5           1.5          0.2  setosa
+## 28           5.2          3.4           1.4          0.2  setosa
+## 29           4.7          3.2           1.6          0.2  setosa
+## 30           4.8          3.1           1.6          0.2  setosa
+## 32           5.2          4.1           1.5          0.1  setosa
+## 33           5.5          4.2           1.4          0.2  setosa
+## 34           4.9          3.1           1.5          0.2  setosa
+## 35           5.0          3.2           1.2          0.2  setosa
+## 36           5.5          3.5           1.3          0.2  setosa
+## 37           4.9          3.6           1.4          0.1  setosa
+## 38           4.4          3.0           1.3          0.2  setosa
+## 39           5.1          3.4           1.5          0.2  setosa
+## 40           5.0          3.5           1.3          0.3  setosa
+## 41           4.5          2.3           1.3          0.3  setosa
+## 42           4.4          3.2           1.3          0.2  setosa
+## 45           4.8          3.0           1.4          0.3  setosa
+## 46           5.1          3.8           1.6          0.2  setosa
+## 47           4.6          3.2           1.4          0.2  setosa
+## 48           5.3          3.7           1.5          0.2  setosa
+## 49           5.0          3.3           1.4          0.2  setosa
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pw}\OtherTok{=}\NormalTok{.}\DecValTok{3}
+\NormalTok{sp}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\StringTok{"setosa"}\NormalTok{,}\StringTok{"setosa1"}\NormalTok{)}
+\NormalTok{df1 }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(}
+\NormalTok{    Species }\SpecialCharTok{\%in\%}\NormalTok{ sp}
+\NormalTok{    ,Petal\_Width }\SpecialCharTok{\textless{}=}\NormalTok{ pw           }
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Sepal_Length Sepal_Width Petal_Length Petal_Width Species
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           4.6         3.4          1.4         0.3  setosa
+## 7           5.0         3.4          1.5         0.2  setosa
+## 8           4.4         2.9          1.4         0.2  setosa
+## 9           4.9         3.1          1.5         0.1  setosa
+## 10          5.4         3.7          1.5         0.2  setosa
+## 11          4.8         3.4          1.6         0.2  setosa
+## 12          4.8         3.0          1.4         0.1  setosa
+## 13          4.3         3.0          1.1         0.1  setosa
+## 14          5.8         4.0          1.2         0.2  setosa
+## 15          5.1         3.5          1.4         0.3  setosa
+## 16          5.7         3.8          1.7         0.3  setosa
+## 17          5.1         3.8          1.5         0.3  setosa
+## 18          5.4         3.4          1.7         0.2  setosa
+## 19          4.6         3.6          1.0         0.2  setosa
+## 20          4.8         3.4          1.9         0.2  setosa
+## 21          5.0         3.0          1.6         0.2  setosa
+## 22          5.2         3.5          1.5         0.2  setosa
+## 23          5.2         3.4          1.4         0.2  setosa
+## 24          4.7         3.2          1.6         0.2  setosa
+## 25          4.8         3.1          1.6         0.2  setosa
+## 26          5.2         4.1          1.5         0.1  setosa
+## 27          5.5         4.2          1.4         0.2  setosa
+## 28          4.9         3.1          1.5         0.2  setosa
+## 29          5.0         3.2          1.2         0.2  setosa
+## 30          5.5         3.5          1.3         0.2  setosa
+## 31          4.9         3.6          1.4         0.1  setosa
+## 32          4.4         3.0          1.3         0.2  setosa
+## 33          5.1         3.4          1.5         0.2  setosa
+## 34          5.0         3.5          1.3         0.3  setosa
+## 35          4.5         2.3          1.3         0.3  setosa
+## 36          4.4         3.2          1.3         0.2  setosa
+## 37          4.8         3.0          1.4         0.3  setosa
+## 38          5.1         3.8          1.6         0.2  setosa
+## 39          4.6         3.2          1.4         0.2  setosa
+## 40          5.3         3.7          1.5         0.2  setosa
+## 41          5.0         3.3          1.4         0.2  setosa
+\end{verbatim}
+
+\hypertarget{select}{%
+\paragraph{\texorpdfstring{{ select }}{ select }}\label{select}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cl}\OperatorTok{=}\NormalTok{[}\StringTok{"Sepal\_Length"}\NormalTok{,}\StringTok{"Petal\_Width"}\NormalTok{]}
+\NormalTok{df1[cl]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Sepal_Length  Petal_Width
+## 0             5.1          0.2
+## 1             4.9          0.2
+## 2             4.7          0.2
+## 3             4.6          0.2
+## 4             5.0          0.2
+## ..            ...          ...
+## 145           6.7          2.3
+## 146           6.3          1.9
+## 147           6.5          2.0
+## 148           6.2          2.3
+## 149           5.9          1.8
+## 
+## [150 rows x 2 columns]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\NormalTok{cl}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\StringTok{"Sepal\_Length"}\NormalTok{,}\StringTok{"Petal\_Width"}\NormalTok{)}
+\NormalTok{df1}\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(cl))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Sepal_Length Petal_Width
+## 1            5.1         0.2
+## 2            4.9         0.2
+## 3            4.7         0.2
+## 4            4.6         0.2
+## 5            5.0         0.2
+## 6            5.4         0.4
+## 7            4.6         0.3
+## 8            5.0         0.2
+## 9            4.4         0.2
+## 10           4.9         0.1
+## 11           5.4         0.2
+## 12           4.8         0.2
+## 13           4.8         0.1
+## 14           4.3         0.1
+## 15           5.8         0.2
+## 16           5.7         0.4
+## 17           5.4         0.4
+## 18           5.1         0.3
+## 19           5.7         0.3
+## 20           5.1         0.3
+## 21           5.4         0.2
+## 22           5.1         0.4
+## 23           4.6         0.2
+## 24           5.1         0.5
+## 25           4.8         0.2
+## 26           5.0         0.2
+## 27           5.0         0.4
+## 28           5.2         0.2
+## 29           5.2         0.2
+## 30           4.7         0.2
+## 31           4.8         0.2
+## 32           5.4         0.4
+## 33           5.2         0.1
+## 34           5.5         0.2
+## 35           4.9         0.2
+## 36           5.0         0.2
+## 37           5.5         0.2
+## 38           4.9         0.1
+## 39           4.4         0.2
+## 40           5.1         0.2
+## 41           5.0         0.3
+## 42           4.5         0.3
+## 43           4.4         0.2
+## 44           5.0         0.6
+## 45           5.1         0.4
+## 46           4.8         0.3
+## 47           5.1         0.2
+## 48           4.6         0.2
+## 49           5.3         0.2
+## 50           5.0         0.2
+## 51           7.0         1.4
+## 52           6.4         1.5
+## 53           6.9         1.5
+## 54           5.5         1.3
+## 55           6.5         1.5
+## 56           5.7         1.3
+## 57           6.3         1.6
+## 58           4.9         1.0
+## 59           6.6         1.3
+## 60           5.2         1.4
+## 61           5.0         1.0
+## 62           5.9         1.5
+## 63           6.0         1.0
+## 64           6.1         1.4
+## 65           5.6         1.3
+## 66           6.7         1.4
+## 67           5.6         1.5
+## 68           5.8         1.0
+## 69           6.2         1.5
+## 70           5.6         1.1
+## 71           5.9         1.8
+## 72           6.1         1.3
+## 73           6.3         1.5
+## 74           6.1         1.2
+## 75           6.4         1.3
+## 76           6.6         1.4
+## 77           6.8         1.4
+## 78           6.7         1.7
+## 79           6.0         1.5
+## 80           5.7         1.0
+## 81           5.5         1.1
+## 82           5.5         1.0
+## 83           5.8         1.2
+## 84           6.0         1.6
+## 85           5.4         1.5
+## 86           6.0         1.6
+## 87           6.7         1.5
+## 88           6.3         1.3
+## 89           5.6         1.3
+## 90           5.5         1.3
+## 91           5.5         1.2
+## 92           6.1         1.4
+## 93           5.8         1.2
+## 94           5.0         1.0
+## 95           5.6         1.3
+## 96           5.7         1.2
+## 97           5.7         1.3
+## 98           6.2         1.3
+## 99           5.1         1.1
+## 100          5.7         1.3
+## 101          6.3         2.5
+## 102          5.8         1.9
+## 103          7.1         2.1
+## 104          6.3         1.8
+## 105          6.5         2.2
+## 106          7.6         2.1
+## 107          4.9         1.7
+## 108          7.3         1.8
+## 109          6.7         1.8
+## 110          7.2         2.5
+## 111          6.5         2.0
+## 112          6.4         1.9
+## 113          6.8         2.1
+## 114          5.7         2.0
+## 115          5.8         2.4
+## 116          6.4         2.3
+## 117          6.5         1.8
+## 118          7.7         2.2
+## 119          7.7         2.3
+## 120          6.0         1.5
+## 121          6.9         2.3
+## 122          5.6         2.0
+## 123          7.7         2.0
+## 124          6.3         1.8
+## 125          6.7         2.1
+## 126          7.2         1.8
+## 127          6.2         1.8
+## 128          6.1         1.8
+## 129          6.4         2.1
+## 130          7.2         1.6
+## 131          7.4         1.9
+## 132          7.9         2.0
+## 133          6.4         2.2
+## 134          6.3         1.5
+## 135          6.1         1.4
+## 136          7.7         2.3
+## 137          6.3         2.4
+## 138          6.4         1.8
+## 139          6.0         1.8
+## 140          6.9         2.1
+## 141          6.7         2.4
+## 142          6.9         2.3
+## 143          5.8         1.9
+## 144          6.8         2.3
+## 145          6.7         2.5
+## 146          6.7         2.3
+## 147          6.3         1.9
+## 148          6.5         2.0
+## 149          6.2         2.3
+## 150          5.9         1.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# df1\%\textgreater{}\% dplyr::select(Sepal\_Length,Petal\_Width)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{pivotmelt}{%
+\subsubsection{pivot/melt}\label{pivotmelt}}
+
+\hypertarget{melt---pivot_longer}{%
+\paragraph{\texorpdfstring{{ melt - pivot\_longer
+}}{ melt - pivot\_longer }}\label{melt---pivot_longer}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{df2 }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{: \{}\DecValTok{0}\NormalTok{: }\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{, }\DecValTok{1}\NormalTok{: }\StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{, }\DecValTok{2}\NormalTok{: }\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{\},}
+                   \StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{: \{}\DecValTok{0}\NormalTok{: }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{: }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{: }\DecValTok{5}\NormalTok{\},}
+                   \StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{: \{}\DecValTok{0}\NormalTok{: }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{: }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{: }\DecValTok{6}\NormalTok{\}\})}
+\NormalTok{df2.melt(id\_vars}\OperatorTok{=}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    A variable  value
+## 0  a        B      1
+## 1  b        B      3
+## 2  c        B      5
+## 3  a        C      2
+## 4  b        C      4
+## 5  c        C      6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df2.melt(id\_vars}\OperatorTok{=}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, value\_vars}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{], var\_name}\OperatorTok{=}\StringTok{\textquotesingle{}BC\textquotesingle{}}\NormalTok{, value\_name}\OperatorTok{=}\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    A BC  value
+## 0  a  B      1
+## 1  b  B      3
+## 2  c  B      5
+## 3  a  C      2
+## 4  b  C      4
+## 5  c  C      6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(tidyr)}
+\NormalTok{df2 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{A=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{)}
+\NormalTok{  ,}\AttributeTok{B=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\NormalTok{  ,}\AttributeTok{C=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\NormalTok{  )}
+\NormalTok{df2 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(B}\SpecialCharTok{:}\NormalTok{C,}\AttributeTok{names\_to =} \StringTok{\textquotesingle{}BC\textquotesingle{}}\NormalTok{,}\AttributeTok{values\_to =} \StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   A     BC    value
+##   <chr> <chr> <dbl>
+## 1 a     B         1
+## 2 a     C         2
+## 3 b     B         3
+## 4 b     C         4
+## 5 c     B         5
+## 6 c     C         6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(tidyr)}
+\NormalTok{df2 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{A=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{)}
+\NormalTok{  ,}\AttributeTok{B=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{)}
+\NormalTok{  ,}\AttributeTok{D=}\FunctionTok{c}\NormalTok{( }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{11}\NormalTok{)}
+\NormalTok{  ,}\AttributeTok{E=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{12}\NormalTok{)}
+\NormalTok{  )}
+\NormalTok{df2 }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{any\_of}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}D\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}E\textquotesingle{}}\NormalTok{)),}\AttributeTok{names\_to =} \StringTok{"DE"}\NormalTok{,}\AttributeTok{values\_to  =} \StringTok{"value"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 4
+##    A     B     DE    value
+##    <chr> <chr> <chr> <dbl>
+##  1 a     A     D         1
+##  2 a     A     E         2
+##  3 a     B     D         3
+##  4 a     B     E         4
+##  5 b     A     D         5
+##  6 b     A     E         6
+##  7 b     B     D         7
+##  8 b     B     E         8
+##  9 c     A     D         9
+## 10 c     A     E        10
+## 11 c     B     D        11
+## 12 c     B     E        12
+\end{verbatim}
+
+\hypertarget{pivot_wider}{%
+\paragraph{\texorpdfstring{{ pivot\_wider
+}}{ pivot\_wider }}\label{pivot_wider}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{df2 }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{: \{}\DecValTok{0}\NormalTok{: }\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{, }\DecValTok{1}\NormalTok{: }\StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{, }\DecValTok{2}\NormalTok{: }\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{\},}
+                   \StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{: \{}\DecValTok{0}\NormalTok{: }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{: }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{: }\DecValTok{5}\NormalTok{\},}
+                   \StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{: \{}\DecValTok{0}\NormalTok{: }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{: }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{: }\DecValTok{6}\NormalTok{\}\})}
+\CommentTok{\#print(df2)}
+\NormalTok{df2\_melt}\OperatorTok{=}\NormalTok{df2.melt(id\_vars}\OperatorTok{=}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, value\_vars}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{], var\_name}\OperatorTok{=}\StringTok{\textquotesingle{}BC\textquotesingle{}}\NormalTok{, value\_name}\OperatorTok{=}\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{)}
+\CommentTok{\#print(df2\_melt)}
+\NormalTok{df\_pivot}\OperatorTok{=}\NormalTok{df2\_melt.pivot(index}\OperatorTok{=}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, columns}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}BC\textquotesingle{}}\NormalTok{])}\CommentTok{\#, values=\textquotesingle{}value\textquotesingle{})}
+\NormalTok{df2\_r }\OperatorTok{=}\NormalTok{ df\_pivot.reset\_index(}\VariableTok{None}\NormalTok{)}
+\NormalTok{df2\_r.columns }\OperatorTok{=}\NormalTok{ [}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{]}
+\BuiltInTok{print}\NormalTok{(df2\_r)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    A  B  C
+## 0  a  1  2
+## 1  b  3  4
+## 2  c  5  6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df2\_r.columns}\OperatorTok{=}\NormalTok{df2.columns.values}
+\BuiltInTok{print}\NormalTok{(df2.columns.values)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ['A' 'B' 'C']
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{print}\NormalTok{(df2\_r)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    A  B  C
+## 0  a  1  2
+## 1  b  3  4
+## 2  c  5  6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(tidyr)}
+\NormalTok{df2 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{A=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{)}
+\NormalTok{  ,}\AttributeTok{B=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\NormalTok{  ,}\AttributeTok{C=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{df2\_melt}\OtherTok{\textless{}{-}}\NormalTok{df2 }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{any\_of}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{)),}\AttributeTok{names\_to =} \StringTok{"BC"}\NormalTok{,}\AttributeTok{values\_to  =} \StringTok{"value"}\NormalTok{)}
+\NormalTok{df\_pivot }\OtherTok{\textless{}{-}}\NormalTok{ df2\_melt }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{id\_cols =}\NormalTok{ A, }\AttributeTok{names\_from =}\NormalTok{ BC,}\AttributeTok{values\_from =}\NormalTok{ value )}
+\NormalTok{df\_pivot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 3
+##   A         B     C
+##   <chr> <dbl> <dbl>
+## 1 a         1     2
+## 2 b         3     4
+## 3 c         5     6
+\end{verbatim}
+
+\hypertarget{dplython}{%
+\subsubsection{dplython}\label{dplython}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#To install:}
+\CommentTok{\# pip install dplython}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{section}{%
+\paragraph{\texorpdfstring{{ 1 }}{ 1 }}\label{section}}
+
+\hypertarget{siuba}{%
+\subsubsection{siuba}\label{siuba}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#To install:}
+\CommentTok{\# pip install siuba}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{section-1}{%
+\paragraph{\texorpdfstring{{ 1 }}{ 1 }}\label{section-1}}
+
+\hypertarget{contact-us}{%
+\subsection{Contact us}\label{contact-us}}
+
+Contact me at
+\href{mailto:masoudfaridi@modares.ac.ir}{\nolinkurl{masoudfaridi@modares.ac.ir}}
+or
+\href{mailto:masoud1faridi@gmail.com}{\nolinkurl{masoud1faridi@gmail.com}}
+
+\end{document}

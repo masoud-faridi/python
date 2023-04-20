@@ -1,0 +1,630 @@
+---
+title: "RPandas Part 001"
+output: pdf_document
+date: '2023.03.22'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+#tinytex::install_tinytex()
+```
+
+## Choosing a file
+
+### <span style="color:orange"> Choosing a file in Python with simple Dialog: easygui  </span>
+```{python}
+# python code
+#To install:
+# pip install easygui
+import easygui
+#filename =easygui.fileopenbox()
+#print(filename)
+#easygui.egdemo()
+
+```
+
+
+### <span style="color:orange"> Choosing a file in Python with simple Dialog: plyer  </span>
+```{python}
+# python code
+#To install:
+# pip install plyer
+#import plyer 
+#filename =plyer.filechooser.open_file()
+#print(filename)
+```
+
+
+```{r}
+# R code
+#filename =file.choose()
+#print(filename)
+```
+
+## read csv and xlsx files
+
+### <span style="color:orange">  csv </span>
+
+```{python}
+# python code
+import pandas as pd
+#import easygui
+#filename = easygui.fileopenbox()
+filename = "G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris.csv"
+df1=pd.read_csv(filename)
+df1
+```
+
+
+```{python} 
+# python code
+#df1.dtypes
+#df1.head()
+#df1.tail(2)
+#df1.columns
+#df1.describe()
+#df1["Petal_Length"]
+#df1[0:2]
+df1[df1.Petal_Length==1.4]
+```
+```{r}
+# R code
+#filename = file.choose()
+filename = "G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris.csv"
+df1=read.csv(filename)
+head(df1)
+```
+
+
+### <span style="color:orange">  xlsx </span>
+
+#### R Code
+
+```{r}
+#R code
+library(openxlsx)
+filename = "G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris.xlsx"
+df1=openxlsx::read.xlsx(filename)
+head(df1)
+```
+```{r}
+#R code
+#read all sheets
+library(openxlsx)
+filename = "G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris.xlsx"
+SheetNames <- openxlsx::getSheetNames(filename)
+SheetNames
+SheetList <- lapply(SheetNames,openxlsx::read.xlsx,xlsxFile=filename)
+names(SheetList) <- SheetNames
+SheetList$Sheet1[1:4,]
+SheetList$iris[1:4,]
+
+```
+```{r}
+# write xlsx files
+library(openxlsx)
+wb <- createWorkbook()  #wb <- loadWorkbook("RawExcel.xlsx")
+addWorksheet(wb, sheetName = "sheetname1")
+writeData(wb, sheet = "sheetname1", x = SheetList$iris[1:4,])
+addWorksheet(wb, sheetName = "sheetname2")
+writeData(wb, sheet = "sheetname2", x = SheetList$Sheet1[1:4,])
+#saveWorkbook(wb, "G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris2.xlsx")
+
+```
+
+
+#### Python Code
+
+Python Code
+```{python}
+import pandas as pd
+xls = pd.ExcelFile('G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris2.xlsx')
+xls.sheet_names
+df1 = pd.read_excel(xls, xls.sheet_names[0])
+df2 = pd.read_excel(xls, xls.sheet_names[1])
+df1
+```
+```{python}
+import pandas as pd
+xls = pd.ExcelFile('G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris2.xlsx')
+xls.sheet_names
+df1 = pd.read_excel(xls, xls.sheet_names[0])
+df2 = pd.read_excel(xls, xls.sheet_names[1])
+df1
+dff=[pd.read_excel(xls, x) for x in xls.sheet_names]
+
+```
+```{python}
+import pandas as pd
+dict_temp = pd.read_excel('G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris2.xlsx', sheet_name= xls.sheet_names)
+dict_temp['sheetname1']
+dict_temp['sheetname2']
+```
+
+
+
+
+##  filter and select
+
+
+### <span style="color:orange">  filter </span>
+
+
+```{python} 
+# python code
+pl=1.4
+qs="Petal_Length==@pl"
+df1.query(qs)
+```
+
+
+
+```{python} 
+# python code
+pw=.3
+sp=["setosa","setosa1"]
+qs="Species in @sp"\
+ " and Petal_Width <= @pw"
+df1.query(qs)
+```
+
+```{r}
+# R code
+library(dplyr)
+filename = "G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris.csv"
+df1=read.csv(filename)
+pw=.3
+sp=c("setosa","setosa1")
+df1 %>%
+  dplyr::filter(
+    Species %in% sp
+    ,Petal_Width <= pw           
+  ) %>% head()
+```
+
+### <span style="color:orange">  select </span>
+
+```{python} 
+# python code
+cl=["Sepal_Length","Petal_Width"]
+df1[cl]
+```
+```{r}
+# R code
+library(dplyr)
+cl=c("Sepal_Length","Petal_Width")
+df1%>% dplyr::select(all_of(cl))  %>% head()
+# df1%>% dplyr::select(Sepal_Length,Petal_Width)
+```
+
+## pivot/melt
+
+
+### <span style="color:orange">  melt - pivot_longer </span>
+
+
+
+```{python} 
+# python code
+import pandas as pd
+df2 = pd.DataFrame({'A': {0: 'a', 1: 'b', 2: 'c'},
+                   'B': {0: 1, 1: 3, 2: 5},
+                   'C': {0: 2, 1: 4, 2: 6}})
+df2.melt(id_vars='A')
+df2.melt(id_vars='A', value_vars=['B','C'], var_name='BC', value_name='value')
+```
+```{r}
+# R code
+library(dplyr)
+library(tidyr)
+df2 = data.frame(
+  A=c('a','b','c')
+  ,B=c(1,3,5)
+  ,C=c(2,4,6)
+  )
+df2 %>% 
+  pivot_longer(B:C,names_to = 'BC',values_to = 'value')  %>% head()
+```
+```{r}
+# R code
+library(dplyr)
+library(tidyr)
+df2 = data.frame(
+  A=c('a', 'a','b', 'b', 'c','c')
+  ,B=c('A', 'B','A', 'B', 'A','B')
+  ,D=c( 1, 3, 5,7,9,11)
+  ,E=c(2, 4, 6,8,10,12)
+  )
+df2 %>%
+  tidyr::pivot_longer(cols = any_of(c('D','E')),names_to = "DE",values_to  = "value")  %>% head()
+```
+### <span style="color:orange"> pivot_wider </span>
+
+```{python}
+# python code
+import pandas as pd
+df2 = pd.DataFrame({'A': {0: 'a', 1: 'b', 2: 'c'},
+                   'B': {0: 1, 1: 3, 2: 5},
+                   'C': {0: 2, 1: 4, 2: 6}})
+#print(df2)
+df2_melt=df2.melt(id_vars='A', value_vars=['B','C'], var_name='BC', value_name='value')
+#print(df2_melt)
+df_pivot=df2_melt.pivot(index='A', columns=['BC'])#, values='value')
+df2_r = df_pivot.reset_index(None)
+df2_r.columns = ['A', 'B', 'C']
+print(df2_r)
+df2_r.columns=df2.columns.values
+print(df2.columns.values)
+print(df2_r)
+```
+```{r}
+# R code
+library(dplyr)
+library(tidyr)
+df2 = data.frame(
+  A=c('a','b','c')
+  ,B=c(1,3,5)
+  ,C=c(2,4,6)
+)
+df2_melt<-df2 %>%
+  tidyr::pivot_longer(cols = any_of(c('B','C')),names_to = "BC",values_to  = "value")
+df_pivot <- df2_melt %>%
+  tidyr::pivot_wider(id_cols = A, names_from = BC,values_from = value )
+df_pivot  %>% head()
+```
+
+
+
+## dplython
+
+```{python}
+# python code
+#To install:
+# pip install dplython
+```
+
+### <span style="color:orange">  1 </span>
+
+## siuba
+
+```{python}
+# python code
+#To install:
+# pip install siuba
+```
+
+### <span style="color:orange">  1 </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## The across function 
+
+
+### across
+
+* across() makes it easy to apply the same transformation to multiple columns, allowing you to use select() semantics inside in "data-masking" functions like summarise() and mutate().
+
+* if_any() and if_all() are used to apply the same predicate function to a selection of columns and combine the results into a single logical vector.
+
+* across() supersedes the family of dplyr "scoped variants" like summarise_at(), summarise_if(), and summarise_all() and therefore these functions will not be implemented in poorman.
+across: Apply a function (or functions) across multiple columns
+
+
+### Usage
+
+* across(.cols = everything(), .fns = NULL, ..., .names = NULL)
+
+* if_any(.cols, .fns = NULL, ..., .names = NULL)
+
+* if_all(.cols, .fns = NULL, ..., .names = NULL)
+
+### Arguments
+
+#### .fns
+Functions to apply to each of the selected columns. Possible values are:
+
+* NULL, to returns the columns untransformed.
+
+* A function, e.g. mean.
+
+* A lambda, e.g. ~ mean(.x, na.rm = TRUE)
+
+* A list of functions/lambdas, e.g. list(mean = mean, n_miss = ~ sum(is.na(.x))
+
+Within these functions you can use cur_column() and cur_group() to access the current column and grouping keys respectively.
+
+#### ...
+Additional arguments for the function calls in .fns.
+
+#### .names
+character(n). Currently limited to specifying a vector of names to use for the outputs.
+
+#### cols, .cols
+<poor-select> Columns to transform. Because across() is used within functions like summarise() and mutate(), you can't select or compute upon grouping variables.
+
+
+#### Value
+
+* across() returns a data.frame with one column for each column in .cols and each function in .fns.
+
+* if_any() and if_all() return a logical vector.
+
+
+
+### How to use across
+
+There are four columns and I want to quickly get the mean of these columns for each category. First, here’s how I might do this without across:
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+  summarise(
+    Sepal.Length = mean(Sepal.Length, na.rm = TRUE),
+    Sepal.Width = mean(Sepal.Width, na.rm = TRUE),
+    Petal.Width = mean(Petal.Width, na.rm = TRUE),
+    Petal.Length = mean(Petal.Length, na.rm = TRUE)
+    )  %>% head()
+```
+Which works fine. But imagine if instead of four columns there were 10 or 20 or 100! It would quickly get tedious to add a new line for each column. Here’s where across comes in:
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+  
+  summarise(across(c(Sepal.Length, Sepal.Width, Petal.Length,Petal.Width),mean,na.rm = TRUE)) %>% head()
+    
+```
+
+Much more efficient. We give across a vector of column names followed by the function (in this case mean) followed by any other arguments we want to apply to the function.
+
+
+
+
+
+### : 
+
+: for selecting a range of consecutive variables.
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+       summarise(across(c(Sepal.Length:Petal.Width), mean, na.rm = TRUE))  %>% head()
+    
+```
+### ! 
+
+! for taking the complement of a set of variables.
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+       summarise(across(!c(Petal.Width), mean, na.rm = TRUE))  %>% head()
+    
+```
+
+### & and | 
+
+& and |for selecting the intersection or the union of two sets of variables.
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+       summarise(across(ends_with('Length') & !c(Petal.Length, Petal.Width), mean, na.rm = TRUE))  %>% head()
+    
+```
+
+
+### c() 
+
+c() for combining selections.
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+  
+  summarise(across(c(Sepal.Length, Sepal.Width, Petal.Length,Petal.Width),mean,na.rm = TRUE)) %>% head()
+    
+```
+
+
+
+### starts_with()
+
+starts_with(): Starts with a prefix.
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+   
+  summarise(across(starts_with("S"),mean,na.rm = TRUE))  %>% head()
+    
+```
+### ends_with()
+
+ends_with(): Ends with a suffix.
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+  
+  summarise(across(ends_with("dth"),mean,na.rm = TRUE))  %>% head()
+    
+```
+### contains()
+
+contains(): Contains a literal string.
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+    summarise(across(contains('Length'),mean,na.rm = TRUE))  %>% head()
+```
+
+### matches()
+
+matches(): Matches a regular expression.
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+    summarise(across(matches('^(S|P)'),mean,na.rm = TRUE))  %>% head()
+```
+
+### num_range()
+
+num_range(): Matches a numerical range like x01, x02, x03.
+
+```{r}
+# R code
+df <- as.data.frame(matrix(1:24, nrow = 3))
+df  %>% head()
+df %>% select(num_range("V", seq(1, 1000, by = 3)))  %>% head()
+```
+
+```{r}
+# R code
+df <- data.frame(id=c("a","a","b"), tot_1=4:6, tot_2=8:10, tot_3=11:13, tot_4=33:35,tot_5=22:24)
+df  %>% head()
+df %>% group_by(id) %>%
+  mutate(across(.cols = num_range("tot_", seq(1, 5, by = 2)),mean,na.rm = TRUE))  %>% head()
+```
+
+
+```{r}
+# R code
+df %>% group_by(id) %>%
+  summarise(across(.cols = num_range(prefix="tot_", range=seq(1, 5, by = 2)),mean,na.rm = TRUE))  %>% head()
+```
+
+### all_of() 
+
+all_of(): Matches variable names in a character vector. All names must be present, otherwise an out-of-bounds error is thrown.
+
+
+
+
+
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+    summarise(across(all_of(c('Sepal.Length','Sepal.Width','Petal.Length')),mean,na.rm = TRUE))  %>% head()
+```
+
+
+### any_of()
+
+any_of(): Same as all_of(), except that no error is thrown for names that don't exist.
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+    summarise(across(any_of(c('Sepal.Length','Sepal.Width','Petal.Length','Not_valid_name')),mean,na.rm = TRUE))  %>% head()
+```
+
+### where()
+
+where(): Applies a function to all variables and selects those for which the function returns TRUE.
+
+
+
+```{r}
+# R code
+iris  %>%
+  group_by(Species) %>%
+       summarise(across(where(is.numeric), mean, na.rm = TRUE))  %>% head()
+    
+```
+
+
+
+
+## Using in-line functions with across
+
+Let’s look at an example of summarizing the columns using a custom function (rather than n_distinct()). I usually do this using the tilde-dot shorthand for inline functions. The notation works by replacing
+
+```{r}
+# R code
+function(x) {
+  x + 10
+}
+```
+
+with
+
+```{r}
+# R code
+~{.x + 10}
+
+```
+
+ ~ indicates that you have started an anonymous function, and the argument of the anonymous function can be referred to using .x  (or simply  . ). Unlike normal function arguments that can be anything that you like, the tilde-dot function argument is always .x.
+
+For instance, to identify how many missing values there are in every column, we could specify the inline function ~sum(is.na(.)), which calculates how many NA values are in each column (where the column is represented by .) and adds them up:
+
+```{r}
+# R code
+dat<-data.frame(a=c(1,2,3,NA,NA,6),b=1:6,d=c(NA,2:6))
+dat
+dat %>%
+  summarise(across(everything(),  ~sum(is.na(.))))  %>% head()
+```
+
+
+```{r}
+# R code
+dat<-data.frame(a=c(1:4),b=c(1:4)^2,d=c(1:4)^3)
+dat  %>% head()
+dat %>%
+  summarise(across(everything(),  ~ .x +10))  %>% head()
+```
+
+
+
+## Contact us
+
+Contact me at masoudfaridi@modares.ac.ir or masoud1faridi@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
