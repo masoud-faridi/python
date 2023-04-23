@@ -7,6 +7,7 @@ date: '2023.03.22'
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
+library(dplyr)
 #tinytex::install_tinytex()
 ```
 
@@ -158,8 +159,6 @@ qs="Petal_Length==@pl"
 df1.query(qs)
 ```
 
-
-
 ```{python} 
 # python code
 pw=.3
@@ -171,7 +170,6 @@ df1.query(qs)
 
 ```{r}
 # R code
-library(dplyr)
 filename = "G:\\Python tutorial\\pythontutorial\\pythontutorial\\iris.csv"
 df1=read.csv(filename)
 pw=.3
@@ -192,11 +190,876 @@ df1[cl]
 ```
 ```{r}
 # R code
-library(dplyr)
 cl=c("Sepal_Length","Petal_Width")
 df1%>% dplyr::select(all_of(cl))  %>% head()
 # df1%>% dplyr::select(Sepal_Length,Petal_Width)
 ```
+
+
+###  starts_with
+
+
+```{r}
+# R Code
+names(iris)
+iris %>%
+   head(3)
+iris %>%
+  dplyr::select(starts_with('Sepal')) %>% head(3)
+```
+
+###  ends_with
+
+
+```{r}
+# R Code
+iris %>%
+  dplyr::select(ends_with('Length')) %>% head(3)
+```
+
+
+###  contains
+
+
+```{r}
+# R Code
+iris %>%
+  dplyr::select(contains('Wid')) %>% head(3)
+```
+
+
+###  matches
+
+
+```{r}
+# R Code
+iris %>%
+  dplyr::select(dplyr::matches("^(S)")) %>% head(3)
+iris %>%
+  dplyr::select(dplyr::matches("^(Sepal.L|Sp)")) %>% head(3)
+```
+
+
+
+###  any_of
+
+
+```{r}
+# R Code
+iris %>%
+  dplyr::select(dplyr::any_of(c('Sepal.Length','Sepal.Width','Petal.Length','Not_valid_name'))) %>% head(3)
+
+```
+
+
+
+
+###  where
+
+
+```{r}
+# R Code
+iris %>%
+  dplyr::select(dplyr::where(is.numeric)) %>% head(3)
+```
+
+
+## siuba python
+
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# old approach: repeat name
+cars[cars.cyl == 4]
+# old approach: lambda
+cars[lambda _: _.cyl == 4]
+# siu approach
+cars[_.cyl == 4]
+```
+
+### filter
+
+
+
+
+
+
+
+[siuba.org](https://siuba.org/)
+
+
+```{python}
+import siuba
+from siuba.data import cars
+df2=(cars
+    >> siuba.group_by(siuba._.cyl)
+    >> siuba.filter(siuba._.mpg < siuba._.mpg.mean())
+)
+print(df2)
+```
+```{python}
+import siuba
+from siuba.data import cars
+from siuba import _
+df2=(cars
+    >> siuba.group_by(_.cyl)
+    >> siuba.filter(_.mpg < _.mpg.mean())
+)
+print(df2)
+```
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df2=(cars
+    >> siuba.group_by( _.cyl )
+    >> siuba.filter( _.mpg < _.mpg.mean() )
+)
+print(df2.head())
+
+```
+
+
+### isin (%in%)
+
+```{python}
+import siuba
+from siuba.data import cars
+from siuba import _
+import pandas as pd
+df2=(cars
+    >> siuba.filter( _.cyl.isin([8,6]))
+)
+print( df2)
+```
+```{python}
+import siuba
+from siuba.data import cars
+from siuba import _
+import pandas as pd
+df2=(cars
+    >> siuba.filter( _.cyl.isin([8,6]), _.hp.isin([123,180]))
+)
+print( df2)
+```
+
+
+```{python}
+import siuba
+from siuba.data import cars
+from siuba import _
+import pandas as pd
+df3 = pd.DataFrame({
+  'Country': ['Germany', 'France', 'Spain', 'Portugal']
+  ,'num':[101,209,200,100]
+  })
+df4=(df3 >>
+ siuba.filter(_.Country.isin(['Germany','Portugal']))
+)
+print(df4)
+```
+
+
+
+
+### select
+
+```{python}
+import siuba
+from siuba.data import cars
+from siuba import _
+df2=(cars
+    >> siuba.select(_.mpg , _.cyl )
+)
+print( df2.head() )
+```
+### Select by name or position
+
+
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+
+df2=(cars
+    >> siuba.select(_.cyl, 1, ~_.hp )
+)
+print( df2.head() )
+```
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+
+df2=(cars
+    >> siuba.select( -1,-2 )
+)
+print( df2.head() )
+```
+
+
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+
+df2=(cars
+    >> siuba.select( ~_.mpg )
+)
+print( df2.head() )
+```
+
+### Renaming columns
+
+You can rename a specified column by using the equality operator (==). This operation takes the following form.
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+#_.new_name == _.old_name
+df2=(cars
+    >> siuba.select( _.hp2==_.hp, _.cyl2==_.cyl )
+)
+print( df2.head() )
+```
+
+### Use indexing (e.g. _["some_name"]) to refer to any column by name.
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_["start_name":"end_name"])
+df2=(cars
+    >> siuba.select(_['mpg' , 'hp'] )
+)
+print( df2.head() )
+```
+
+
+
+### Select by slice _[start:end]
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_["start_name":"end_name"])
+df2=(cars
+    >> siuba.select(_.cyl,_['mpg' : 'hp'] )
+)
+print( df2.head() )
+```
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_["start_name":"end_name"])
+df2=(cars
+    >> siuba.select(_.cyl,_[1:3])
+)
+print( df2.head() )
+```
+
+
+
+### Exclusion
+
+You can exclude slice selections using the ~ operator.
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(~_["start_name":"end_name"])
+df2=(cars
+    >> siuba.select(_.cyl,~_['mpg' : 'hp'] )
+)
+print( df2.head() )
+```
+
+### Select by pattern (e.g. endswith)
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.endswith("mm"))
+df2=(cars
+    >> siuba.select(_.cyl,_.endswith('p') )
+)
+print( df2.head() )
+```
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.endswith("mm"))
+df2=(cars
+    >> siuba.select(~_.endswith('p') )
+)
+print( df2.head() )
+```
+
+### Select by pattern (e.g. startswith)
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.startswith("mm"))
+df2=(cars
+    >> siuba.select(_.cyl,_.startswith('m') )
+)
+print( df2.head() )
+```
+
+### Select by pattern (e.g. contains)
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.contains("mm"))
+df2=(cars
+    >> siuba.select(_.cyl,_.contains('p') )
+)
+print( df2.head() )
+```
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.contains("mm"))
+df2=(cars
+    >> siuba.select(_.contains('h|c') )
+)
+print( df2.head() )
+```
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.contains("mm"))
+df2=(cars
+    >> siuba.select(~_.contains('h|c') )
+)
+print( df2.head() )
+```
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.contains("mm"))
+df2=(cars
+    >> siuba.select(_.contains('^c|g$') )
+)
+print( df2.head() )
+```
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.contains("mm"))
+df2=(cars
+    >> siuba.select(_.contains('.{2}g$') )
+)
+print( df2.head() )
+```
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.contains("mm"))
+df2=(cars
+    >> siuba.select(_.contains('p.+') )
+)
+print( df2.head() )
+```
+
+### mutate 
+
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.contains("mm"))
+df2=(cars
+    >> siuba.mutate(mpg_std=(_.mpg-_.mpg.mean())/_.mpg.std(),mpg_hp=_.mpg*_.hp,hp_per_cyl = _.hp / _.cyl)
+)
+print( df2.head() )
+```
+
+### Grouped mutates
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df5=(cars
+  >> siuba.group_by( _.cyl )
+  >> siuba.mutate(
+       hp_mean = _.hp.mean(),
+       demeaned_hp = _.hp - _.hp_mean
+     )
+  )
+print(df5)
+```
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','A','B','A','B','B']
+   ,'vl':[1,2,3,7,8,9]
+ }
+ )
+df5=(df6
+  >> siuba.group_by( _.g1 )
+  >> siuba.mutate(
+       vl_mean = _.vl.mean(),
+       vl_std = _.vl.std()
+       ,vl_z=(_.vl-_.vl.mean())/_.vl.std()
+     )
+  )
+print(df5)
+```
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','A','B','A','B','B']
+   ,'vl':[1,2,3,7,8,9]
+ }
+ )
+df5=(df6
+  >> siuba.group_by( _.g1 ,_.g2)
+  >> siuba.mutate(
+       vl_mean = _.vl.mean(),
+       vl_std = _.vl.std()
+       ,vl_z=(_.vl-_.vl.mean())/_.vl.std()
+     )
+  )
+print(df5)
+```
+
+
+### shift
+
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','A','B','A','B','B']
+   ,'vl':[1,2,3,7,8,9]
+ }
+ )
+df5=df5=(df6
+  >> siuba.mutate(
+       vl_lag = _.vl - _.vl.shift(1)
+     )
+  )
+print(df5)
+```
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','A','B','A','B','B']
+   ,'vl':[1,2,3,7,8,9]
+ }
+ )
+df5=df5=(df6
+  >> siuba.mutate(
+       vl_lag = _.vl - _.vl.shift(-1)
+     )
+  )
+print(df5)
+```
+
+
+### Grouped shifts
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'vl':[1,2,3,7,8,9]
+ }
+ )
+df5=df5=(df6
+  >> siuba.group_by(_.g1)
+  >> siuba.mutate(
+       vl_lag = _.vl - _.vl.shift(1)
+     )
+  )
+print(df5)
+```
+
+
+
+
+
+### summarize
+
+
+
+Summarize over all rows
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+# select(_.species, _.contains("mm"))
+df2=(cars
+    >> siuba.summarize(mpg_sum=_.mpg.sum(),mpg_mean=_.mpg.mean(),mpg_min=_.mpg.min(),mpg_max=_.mpg.max()
+     , mpg_std=_.mpg.std(), mpg_median=_.mpg.median(),mpg_count=_.mpg.count())
+)
+print( df2.head() )
+```
+
+### Summarize over groups
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','A','B','A','B','B']
+   ,'vl':[1,2,3,7,8,9]
+ }
+ )
+df5=(df6
+  >> siuba.group_by( _.g1 )
+  >> siuba.summarize(
+       vl_mean = _.vl.mean()
+       ,vl_std=_.vl.std()
+       ,vl_min=_.vl.min()
+       ,vl_max=_.vl.max()
+       ,vl_median=_.vl.median()
+     )
+  )
+print(df5)
+```
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import mtcars
+from siuba import _
+df5=(mtcars
+  >> siuba.group_by(_.cyl)
+  >> siuba.summarize(
+       avg = _.mpg.mean(),
+       range = _.mpg.max() - _.mpg.min(),
+       avg_per_cyl = (_.mpg / _.cyl).mean()
+  )
+)
+print(df5)
+```
+
+
+### Group by an expression
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+    ,'vl':[1,2,3,7,8,9]
+ }
+ )
+df5=(df6
+  >> siuba.group_by( g1_temp= _.vl>3 )
+  >> siuba.summarize(
+       vl_mean = _.vl.mean()
+       ,vl_std=_.vl.std()
+       ,vl_min=_.vl.min()
+       ,vl_max=_.vl.max()
+       ,vl_median=_.vl.median()
+     )
+  )
+print(df5)
+```
+group_by(high_hp = _.hp > 300)
+
+
+### Count rows
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','A','B','A','A','B']
+   ,'vl':[1,2,3,7,8,9]
+ }
+ )
+df5=(df6
+  >> siuba.group_by( _.g1 )
+  >> siuba.summarize(
+      count=_.shape[0]
+     )
+  )
+print(df5)
+df5=(df6
+  >> siuba.group_by( _.g2 )
+  >> siuba.summarize(
+      count=_.shape[0]
+     )
+  )
+print(df5)
+```
+
+
+### sort_values
+
+
+```{python}
+from siuba import _, count
+from siuba.data import mtcars
+
+df3=(mtcars
+    >> count(_.cyl)         # this is a siuba verb
+    >> _.sort_values("n")   # this is a pandas method
+)
+print(df3)
+```
+
+
+
+### shape
+
+```{python}
+from siuba import _, count
+from siuba.data import mtcars
+
+df3=(mtcars
+    >> _.shape
+)
+print(df3)
+
+df3=(mtcars
+    >> _.shape[0]
+)
+print(df3)
+
+df3=(mtcars
+    >> _.shape[1]
+)
+print(df3)
+```
+
+### Google colab overrides _ (import _ as X)
+
+
+```{python}
+from siuba import _ as XX, filter
+from siuba.data import mtcars
+
+df3=mtcars >> filter(XX.mpg > 30)
+print(df3)
+```
+
+### Dropping NA values
+
+Use pandas.isna() / pandas.notna() to determine whether a value is considered to be NA.
+
+
+
+```{python}
+df4 = pd.DataFrame({
+    "x": [True, False, None,True, False, None],
+    "value":[0,5,6,3,9,8]
+    })
+
+print(df4)
+```
+```{python}
+print(pd.isna(df4.x))
+print(df4[pd.isna(df4.x)])
+print(df4[pd.notna(df4.x)])
+```
+```{python}
+import pandas as pd
+from siuba import _, count
+from siuba.data import mtcars
+
+df5=df4 >> siuba.filter(_.x)
+print(df5)
+```
+
+
+```{python}
+import pandas as pd
+from siuba import _, count
+from siuba.data import mtcars
+
+df5=df4 >> siuba.filter(_.x.notna())
+print(df5)
+```
+```{python}
+import pandas as pd
+from siuba import _, count
+from siuba.data import mtcars
+
+df5=df4 >> siuba.filter(_.x.notna(),_.value)
+print(df5)
+```
+```{python}
+import pandas as pd
+from siuba import _, count
+from siuba.data import mtcars
+
+df5=df4 >> siuba.filter(_.x,_.value)
+print(df5)
+```
+
+
+### arrange
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba import _, count
+from siuba.data import cars
+
+df5= cars >> siuba.arrange(-_.hp)
+print(df5.head())
+```
+
+```{python}
+import pandas as pd
+import siuba
+from siuba import _, count
+from siuba.data import cars
+
+df5= cars >> siuba.arrange(_.cyl,-_.mpg)
+print(df5)
+df5=cars >> siuba.arrange(_.hp / _.cyl)
+print(df5)
+```
+
+
+### Using with plotnine
+
+```{python}
+from siuba import mutate, _
+from siuba.data import mtcars
+from plotnine import ggplot, aes, geom_point
+
+(mtcars
+  >> mutate(hp_per_cyl = _.hp / _.cyl)
+  >> ggplot(aes("cyl", "hp_per_cyl"))
+   + geom_point()
+)
+```
+
+
+
+
+### Call external functions
+
+```{python}
+import pandas as pd
+from siuba import _, mutate
+from siuba.siu import call
+
+my_dates = pd.DataFrame({"date": ["2021-01-01", "2021-01-02"]})
+
+pd.to_datetime(my_dates.date)
+```
+
+
+
+```{python}
+my_dates >> mutate(parsed = _.date) >> _.parsed
+```
+
+```{python}
+my_dates >> mutate(parsed = call(pd.to_datetime, _.date))
+```
+
+### sql basic
+
+[https://siuba.org/guide/basics-sql.html](https://siuba.org/guide/basics-sql.html)
+
 
 ## pivot/melt
 
@@ -216,7 +1079,6 @@ df2.melt(id_vars='A', value_vars=['B','C'], var_name='BC', value_name='value')
 ```
 ```{r}
 # R code
-library(dplyr)
 library(tidyr)
 df2 = data.frame(
   A=c('a','b','c')
@@ -228,7 +1090,6 @@ df2 %>%
 ```
 ```{r}
 # R code
-library(dplyr)
 library(tidyr)
 df2 = data.frame(
   A=c('a', 'a','b', 'b', 'c','c')
@@ -260,7 +1121,6 @@ print(df2_r)
 ```
 ```{r}
 # R code
-library(dplyr)
 library(tidyr)
 df2 = data.frame(
   A=c('a','b','c')
@@ -275,26 +1135,6 @@ df_pivot  %>% head()
 ```
 
 
-
-## dplython
-
-```{python}
-# python code
-#To install:
-# pip install dplython
-```
-
-### <span style="color:orange">  1 </span>
-
-## siuba
-
-```{python}
-# python code
-#To install:
-# pip install siuba
-```
-
-### <span style="color:orange">  1 </span>
 
 
 
