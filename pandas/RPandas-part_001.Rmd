@@ -527,6 +527,35 @@ df2=(cars
 print( df2.head() )
 ```
 
+### filter by pattern (e.g. str.endswith)
+
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+df5= (df_fruits >>
+      filter(_.name.str.endswith("do"))
+)
+print(df5)
+```
+
+
 ### Select by pattern (e.g. startswith)
 
 
@@ -541,6 +570,36 @@ df2=(cars
 )
 print( df2.head() )
 ```
+
+
+### filter by pattern (e.g. str.startswith)
+
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+df5= (df_fruits >>
+      filter(_.name.str.startswith("ap"))
+)
+print(df5)
+```
+
 
 ### Select by pattern (e.g. contains)
 
@@ -612,6 +671,286 @@ df2=(cars
 print( df2.head() )
 ```
 
+
+### filter by pattern (e.g. str.contains)
+
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+df5= (df_fruits >>
+      filter(_.name.str.contains(".*[or]$"))
+)
+print(df5)
+
+```
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+df5= (df_fruits >>
+      filter(_.name.str.contains("^[a]"))
+)
+print(df5)
+
+```
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+df5= (df_fruits >>
+      filter(_.name.str.contains("^[ab][ev]"))
+)
+print(df5)
+```
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+df5= (df_fruits >>
+      filter(_.name.str.contains("^[ab][ev].+[r]$"))
+)
+print(df5)
+```
+
+### str.replace() patterns
+
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+print(fruits.str.replace("ap", "?", regex=True))
+df5= (df_fruits >>
+      mutate(name2=_.name.str.replace("ap","?",regex=True))
+)
+print(df5)
+```
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+
+df5= (df_fruits >>
+      mutate(name2=_.name.str.replace("a.","?",regex=True))
+)
+print(df5)
+```
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+
+df5= (df_fruits >>
+      mutate(name2=_.name.str.replace("a.{3}","?",regex=True))
+)
+print(df5)
+```
+### .str.extract() patterns
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+print(fruits.str.extract("a(.*)"))
+df5= (df_fruits >>
+      mutate(name2=_.name.str.extract("a(.*)"))
+)
+print(df5)
+```
+
+
+### .str.split() into list-entries
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+print(fruits.str.split("pp"))
+df5= (df_fruits >>
+      mutate(name2=_.name.str.split("pp"))
+)
+print(df5)
+```
+
+### .str.join() is the inverse of split
+
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+counts = pd.Series([
+        10,
+        20,
+        10,
+        30,
+        50
+])
+df_fruits = pd.DataFrame({"name": fruits,"counts":counts})
+print(fruits.str.split("e").str.join("e"))
+df5= (df_fruits >>
+      mutate(name2=_.name.str.split("pp").str.join("pp"))
+)
+print(df5)
+```
+```{python}
+splits = fruits.str.split("pp")
+print(splits)
+print(splits.explode())
+```
+
+### .str.findall() for advanced splitting
+
+
+```{python}
+fruits.str.findall("pp?")
+```
+
 ### mutate 
 
 
@@ -667,6 +1006,32 @@ df5=(df6
   )
 print(df5)
 ```
+
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','B','C','A','B','C']
+   ,'vl':[1,2,5,3,4,7]
+ }
+ )
+df5=(df6
+  >> siuba.group_by( _.g1 )
+  >> siuba.mutate(
+       vl_mean = _.vl.mean(),
+       vl_std = _.vl.std()
+       ,vl_z=(_.vl-_.vl_mean)/_.vl_std
+     )
+  )
+print(df5)
+```
+
+
+
 ```{python}
 import pandas as pd
 import siuba
@@ -885,7 +1250,29 @@ df5=(df6
   )
 print(df5)
 ```
+### Ungroup
 
+```{python}
+import pandas as pd
+import siuba
+from siuba.data import cars
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','A','B','A','A','B']
+   ,'vl':[1,2,3,7,8,9]
+ }
+ )
+df5=(df6
+  >> siuba.group_by( _.g1 )
+  >> siuba.ungroup()
+  >> siuba.summarize(
+      count=_.shape[0]
+     )
+  )
+print(df5)
+```
 
 ### sort_values
 
@@ -1016,6 +1403,103 @@ df5=cars >> siuba.arrange(_.hp / _.cyl)
 print(df5)
 ```
 
+### Conditionals (if_else)
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','B','C','A','B','C']
+   ,'vl':[1,2,5,3,4,7]
+ }
+ )
+df5=(df6
+  >> siuba.mutate(
+       grp=siuba.if_else(_.vl>4,"bb","aa")
+     )
+  )
+print(df5)
+```
+
+### Conditionals (case_when)
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','B','C','A','B','C']
+   ,'vl':[1,2,5,3,4,7]
+ }
+ )
+df5=(df6
+  >> siuba.mutate(
+       grp=siuba.case_when({
+              _.vl <=2 : "short"
+              ,_.vl<=5 : "medium"
+              , True : "long"
+       })
+     )
+  )
+print(df5)
+```
+
+### Conditionals (case_when + between)
+
+
+```{python}
+import pandas as pd
+import siuba
+from siuba import _
+df6=pd.DataFrame(
+ {
+   'g1':['a','a','a','b','b','b']
+   ,'g2':['A','B','C','A','B','C']
+   ,'vl':[1,2,5,3,4,7]
+ }
+ )
+df5=(df6
+  >> siuba.mutate(
+       grp=siuba.case_when({
+              _.vl <=2 : "short"
+              ,_.vl.between(3,5) : "medium"
+              , True : "long"
+       })
+     )
+  )
+print(df5)
+```
+
+
+### String operations (.str.upper() / str.lower())
+
+
+```{python}
+from siuba.data import penguins
+from siuba import _, mutate, summarize, group_by, filter
+
+fruits = pd.Series([
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper"
+])
+
+df_fruits = pd.DataFrame({"name": fruits})
+df5=(
+  df_fruits >> mutate( up = _.name.str.upper() )
+)
+print(df5)
+print(df5.up.str.lower())
+```
 
 ### Using with plotnine
 
