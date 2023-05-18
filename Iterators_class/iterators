@@ -101,8 +101,6 @@ class set1:
         return "set: {}".format(self._set)
     def __len__(self):
         return len(self._set)
-    def __next__(self):
-        return iter(self._set).__next__()
     def  __iter__(self):
         return iter(self._set)
 st=set1();st
