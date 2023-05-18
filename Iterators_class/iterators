@@ -73,3 +73,22 @@ class Cities:
 cities = Cities()
 for i in cities:
     print(i)
+
+class set1:
+    def __init__(self):
+        self._index=0
+        self._set=['a', 'b', 'c', 'd']
+    def __repr__(self):
+        return "set: {}".format(self._set)
+    def __len__(self):
+        return len(self._set)
+    def __next__(self):
+        if self._index >= len(self._set):
+            raise StopIteration
+        else:
+            ret=self._set[self._index]
+            self._index += 1
+            return ret
+    def  __iter__(self):
+        self._index=0
+        return self
