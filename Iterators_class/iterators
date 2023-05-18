@@ -92,3 +92,21 @@ class set1:
     def  __iter__(self):
         self._index=0
         return self
+
+class set1:
+    def __init__(self):
+        #self._index=0
+        self._set={'a', 'b', 'c', 'd'}
+    def __repr__(self):
+        return "set: {}".format(self._set)
+    def __len__(self):
+        return len(self._set)
+    def __next__(self):
+        return iter(self._set).__next__()
+    def  __iter__(self):
+        return iter(self._set)
+st=set1();st
+for i in st:
+    print(i)
+for i in st:
+    print(i)
