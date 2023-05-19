@@ -36,3 +36,7 @@ class list_rep(list):
                 ls = ls * mul
             ls =ls[:length_out]
         return ls
+      
+      
+      
+# https://stackoverflow.com/questions/71351333/repeat-function-in-python-similar-to-r/76288622#76288622
