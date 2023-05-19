@@ -1,0 +1,1100 @@
+---
+title: "Python Cheat Sheets-0002-Strings-MasoudF"
+output: 
+  html_document:
+    code_folding: show
+    theme:
+      bg: "#202123"
+      fg: "#B8BCC2"
+      primary: "#EA80FC"
+      secondary: "#00DAC6"
+      base_font:
+        google: Prompt
+      heading_font:
+        google: Proza Libre
+---
+
+```{r setup, include=FALSE}
+if (requireNamespace("thematic")) 
+  thematic::thematic_rmd(font = "auto")
+library(reticulate)
+#reticulate::use_python("C:/Program Files/Python310/python.exe")
+```
+
+ 
+
+## Python Strings {.tabset .tabset-pills}
+
+Strings in python are surrounded by either single quotation marks, or double quotation marks.
+
+
+### Strings
+
+
+Strings in python are surrounded by either single quotation marks, or double quotation marks.
+
+'hello' is the same as "hello".
+
+You can display a string literal with the print() function:
+
+```{python}
+#Example
+print("Hello")
+print('Hello')
+```
+
+#### Assign String to a Variable
+
+Assigning a string to a variable is done with the variable name followed by an equal sign and the string:
+
+```{python}
+#Example
+a = "Hello"
+print(a)
+```
+
+#### is and == operator
+
+```{python}
+a = "hello"       
+b = "hello"  
+a is b  #
+a == b
+```
+
+```{python}
+a = "hello world"       
+b = "hello world"  
+a is b  #
+a == b
+```
+
+Some strings are also automatically interned – but not all!
+As the Python code is compiled, identifiers are interned
+
+* variable names
+* function names
+* class names
+* etc.
+
+Identifiers:
+
+* must start with _ or a letter
+* can only contain _, letters and numbers
+
+Some string literals may also be automatically interned:
+
+* string literals that look like identifiers (e.g. ’hello_world’)
+* although if it starts with a digit, even though that is not a valid identifier,
+it may still get interned
+
+But don’t count on it!!
+
+```{python}
+a = "hello_world"       
+b = "hello_world"  
+a is b  #
+a == b
+```
+```{python}
+a = '_this_is_a_long_string_that_could_be_used_as_an_identifier'
+b = '_this_is_a_long_string_that_could_be_used_as_an_identifier'
+a is b
+a==b
+id(a)
+id(b)
+```
+
+```{python}
+import sys
+a = sys.intern("the quick brown fox")
+b = sys.intern("the quick brown fox")
+a is b # much faster than a == b
+```
+
+
+When should you do this?
+
+* dealing with a large number of strings that could have high repetition
+e.g. tokenizing a large corpus of text (NLP)
+*lots of string comparisons
+
+In general though, you do not need to intern strings
+yourself. Only do this if you really need to.
+
+
+#### Multiline Strings
+
+You can assign a multiline string to a variable by using three quotes:
+
+```{python}
+#Example
+#You can use three double quotes:
+
+a = """Lorem ipsum dolor sit amet,
+consectetur adipiscing elit,
+sed do eiusmod tempor incididunt
+ut labore et dolore magna aliqua."""
+print(a)
+```
+
+Or three single quotes:
+
+```{python}
+#Example
+a = '''Lorem ipsum dolor sit amet,
+consectetur adipiscing elit,
+sed do eiusmod tempor incididunt
+ut labore et dolore magna aliqua.'''
+print(a)
+```
+
+<span style="color:yellow;">
+Note: in the result, the line breaks are inserted at the same position as in the code.
+</span>
+
+
+#### Strings are Arrays
+
+Like many other popular programming languages, strings in Python are arrays of bytes representing unicode characters.
+
+However, Python does not have a character data type, a single character is simply a string with a length of 1.
+
+Square brackets can be used to access elements of the string.
+
+```{python}
+#Get the character at position 1 (remember that the first character has the position 0):
+
+a = "Hello, World!"
+print(a[1])
+```
+
+
+#### Looping Through a String
+
+Since strings are arrays, we can loop through the characters in a string, with a for loop.
+
+```{python}
+#Loop through the letters in the word "banana":
+
+for x in "banana":
+  print(x)
+```
+
+
+#### String Length
+To get the length of a string, use the len() function.
+
+```{python}
+#The len() function returns the length of a string:
+
+a = "Hello, World!"
+print(len(a))
+```
+
+#### Check String
+To check if a certain phrase or character is present in a string, we can use the keyword in.
+
+```{python}
+#Example
+#Check if "free" is present in the following text:
+
+txt = "The best things in life are free!"
+print("free" in txt)
+```
+
+Use it in an if statement:
+
+```{python}
+#Example
+#Print only if "free" is present:
+
+txt = "The best things in life are free!"
+if "free" in txt:
+  print("Yes, 'free' is present.")
+```
+
+
+
+#### Check if NOT
+
+To check if a certain phrase or character is NOT present in a string, we can use the keyword not in.
+
+```{python}
+#Example
+#Check if "expensive" is NOT present in the following text:
+
+txt = "The best things in life are free!"
+print("expensive" not in txt)
+```
+
+Use it in an if statement:
+
+```{python}
+#Example
+#print only if "expensive" is NOT present:
+
+txt = "The best things in life are free!"
+if "expensive" not in txt:
+  print("No, 'expensive' is NOT present.")
+  
+```
+
+
+
+
+### Slicing Strings
+
+
+#### Slicing
+
+You can return a range of characters by using the slice syntax.
+
+Specify the start index and the end index, separated by a colon, to return a part of the string.
+
+```{python}
+#Example
+#Get the characters from position 2 to position 5 (not included):
+b = "Hello, World!"
+print(b[2:5])
+```
+
+<span style="color:yellow;">
+Note: The first character has index 0.
+</span>
+
+
+#### Slice From the Start
+
+By leaving out the start index, the range will start at the first character:
+
+```{python}
+#Example
+#Get the characters from the start to position 5 (not included):
+
+b = "Hello, World!"
+print(b[:5])
+```
+
+#### Slice To the End
+
+By leaving out the end index, the range will go to the end:
+
+```{python}
+#Example
+#Get the characters from position 2, and all the way to the end:
+
+b = "Hello, World!"
+print(b[2:])
+```
+
+#### Negative Indexing
+
+Use negative indexes to start the slice from the end of the string:
+
+```{python}
+#Example
+#Get the characters:
+
+#From: "o" in "World!" (position -5)
+
+#To, but not included: "d" in "World!" (position -2):
+
+b = "Hello, World!"
+print(b[-5:-2])
+```
+
+### Modify Strings
+
+
+Python has a set of built-in methods that you can use on strings.
+
+#### Upper Case
+
+
+The upper() method returns the string in upper case:
+
+```{python}
+a = "Hello, World!"
+print(a.upper())
+```
+
+#### Lower Case
+
+The lower() method returns the string in lower case:
+
+```{python}
+a = "Hello, World!"
+print(a.lower())
+```
+
+#### Remove Whitespace
+
+Whitespace is the space before and/or after the actual text, and very often you want to remove this space.
+
+
+The strip() method removes any whitespace from the beginning or the end:
+
+```{python} 
+a = " Hello, World! "
+print(a.strip()) # returns "Hello, World!"
+```
+
+#### Replace String
+
+
+The replace() method replaces a string with another string:
+
+```{python}
+a = "Hello, World!"
+print(a.replace("H", "J"))
+```
+
+#### Split String
+The split() method returns a list where the text between the specified separator becomes the list items.
+
+
+The split() method splits the string into substrings if it finds instances of the separator:
+
+```{python}
+a = "Hello, World!"
+print(a.split(",")) # returns ['Hello', ' World!']
+```
+
+
+### String Concatenation
+
+
+#### String Concatenation
+
+To concatenate, or combine, two strings you can use the + operator.
+
+
+Merge variable a with variable b into variable c:
+
+```{python}
+a = "Hello"
+b = "World"
+c = a + b
+print(c)
+```
+
+
+To add a space between them, add a " ":
+
+```{python}
+a = "Hello"
+b = "World"
+c = a + " " + b
+print(c)
+```
+
+### Format - Strings
+
+
+#### String Format
+
+As we learned in the Python Variables chapter, we cannot combine strings and numbers like this:
+
+```{python}
+#age = 36
+#txt = "My name is John, I am " + age
+#print(txt)
+#TypeError: can only concatenate str (not "int") to str
+```
+
+
+But we can combine strings and numbers by using the format() method!
+
+The format() method takes the passed arguments, formats them, and places them in the string where the placeholders {} are:
+
+
+Use the format() method to insert numbers into strings:
+
+```{python}
+age = 36
+txt = "My name is John, and I am {}"
+print(txt.format(age))
+```
+
+The format() method takes unlimited number of arguments, and are placed into the respective placeholders:
+
+```{python}
+quantity = 3
+itemno = 567
+price = 49.95
+myorder = "I want {} pieces of item {} for {} dollars."
+print(myorder.format(quantity, itemno, price))
+```
+
+You can use index numbers {0} to be sure the arguments are placed in the correct placeholders:
+
+```{python}
+quantity = 3
+itemno = 567
+price = 49.95
+myorder = "I want to pay {2} dollars for {0} pieces of item {1}."
+print(myorder.format(quantity, itemno, price))
+```
+
+### Escape Characters
+
+
+#### Escape Character
+
+To insert characters that are illegal in a string, use an escape character.
+
+An escape character is a backslash \" followed by the character you want to insert.
+
+An example of an illegal character is a double quote inside a string that is surrounded by double quotes:
+
+
+You will get an error if you use double quotes inside a string that is surrounded by double quotes:
+
+```{python}
+#  txt = "We are the so-called "Vikings" from the north."
+```
+
+To fix this problem, use the escape character \":
+
+
+The escape character allows you to use double quotes when you normally would not be allowed:
+```{python}
+txt = "We are the so-called \"Vikings\" from the north."
+```
+
+#### Escape Characters
+
+Other escape characters used in Python:
+
+Code	Result	Try it
+
+```{python}
+#     \'	Single Quote	
+#     \\	Backslash	
+#     \n	New Line	
+#     \r	Carriage Return	
+#     \t	Tab	
+#     \b	Backspace	
+#     \f	Form Feed	
+#     \ooo	Octal value	
+#     \xhh	Hex value
+```
+
+
+
+
+
+### String Methods
+
+Python has a set of built-in methods that you can use on strings.
+
+
+<span style="color:red">
+Note: All string methods returns new values. They do not change the original string.
+</span>
+
+$$
+\begin{array}{cc}
+\text{Method} &   	\text{Description}  \\ \hline
+\text{capitalize()} &   	\text{Converts the first character to upper case}    \\  \hline      
+\text{casefold()}	 &   	\text{Converts string into lower case}    \\ \hline
+\text{center()}     &   \text{Returns a centered string}    \\ \hline
+\text{count() }    &   \text{Returns the number of times a specified value occurs in a string}    \\ \hline
+\text{encode()}     &   		\text{Returns an encoded version of the string}    \\ \hline
+\text{endswith()}     &   	\text{Returns true if the string ends with the specified value}    \\ \hline 
+\text{expandtabs()}     &   \text{Sets the tab size of the string}    \\ \hline 
+\text{find() }    &   	\text{Searches the string for a specified value and returns the position of where it was found}    \\ \hline 
+\text{format()}     &   	\text{Formats specified values in a string}    \\ \hline 
+\text{format_map()}     &  \text{Formats specified values in a string}    \\ \hline 
+\text{index()	}     &   \text{Searches the string for a specified value and returns the position of where it was found}    \\ \hline 
+\text{isalnum()}	     &  \text{Returns True if all characters in the string are alphanumeric}    \\ \hline 
+\text{isalpha()}	     &  \text{Returns True if all characters in the string are in the alphabet}    \\ \hline 
+\text{isdecimal()}	     &   	\text{Returns True if all characters in the string are decimals}    \\ \hline 
+\text{isdigit() }    &   		\text{Returns True if all characters in the string are digits}    \\ \hline 
+\text{isidentifier() }    &   		\text{Returns True if the string is an identifier}    \\ \hline 
+\text{islower() }    &   		\text{Returns True if all characters in the string are lower case}    \\ \hline 
+\text{isnumeric()}     &   		\text{Returns True if all characters in the string are numeric}    \\ \hline 
+\text{isprintable()}	     &   	\text{Returns True if all characters in the string are printable}    \\ \hline 
+\text{isspace()}     &   		\text{Returns True if all characters in the string are whitespaces}    \\ \hline 
+\text{istitle()}	     &   	\text{Returns True if the string follows the rules of a title }   \\ \hline 
+\text{isupper()}	     &   	\text{Returns True if all characters in the string are upper case}    \\ \hline 
+\text{join()}     &   		\text{Joins the elements of an iterable to the end of the string}    \\ \hline 
+\text{ljust()}	     &   	\text{Returns a left justified version of the string}    \\ \hline 
+\text{lower()}	     &   	\text{Converts a string into lower case}    \\ \hline 
+\text{lstrip()}     &   		\text{Returns a left trim version of the string}    \\ \hline 
+\text{maketrans()}     &   		\text{Returns a translation table to be used in translations}    \\ \hline 
+\text{partition() }    &   		\text{Returns a tuple where the string is parted into three parts}    \\ \hline 
+\text{replace()}	     &   	\text{Returns a string where a specified value is replaced with a specified value}    \\ \hline 
+\text{rfind()	}     &   	\text{Searches the string for a specified value and returns the last position of where it was found}    \\ \hline 
+\text{rindex() }    &   		\text{Searches the string for a specified value and returns the last position of where it was found}    \\ \hline 
+\text{rjust()	}     &   	\text{Returns a right justified version of the string}    \\ \hline 
+\text{rpartition() }    &   		\text{Returns a tuple where the string is parted into three parts}    \\ \hline 
+\text{rsplit()}     &   		\text{Splits the string at the specified separator, and returns a list}    \\ \hline 
+\text{rstrip()}     &   		\text{Returns a right trim version of the string}    \\ \hline 
+\text{split()}	     &   	\text{Splits the string at the specified separator, and returns a list}    \\ \hline 
+\text{splitlines()}     &   		\text{Splits the string at line breaks and returns a list}    \\ \hline 
+\text{startswith()}     &   		\text{Returns true if the string starts with the specified value}    \\ \hline 
+\text{strip()}     &   		\text{Returns a trimmed version of the string}    \\ \hline 
+\text{swapcase()}	     &   	\text{Swaps cases, lower case becomes upper case and vice versa}    \\ \hline 
+\text{title()}     &   		\text{Converts the first character of each word to upper case}    \\ \hline 
+\text{translate()}	     &   	\text{Returns a translated string}    \\ \hline 
+\text{upper()}	     &   	\text{Converts a string into upper case}    \\ \hline 
+\text{zfill()}	     &   	\text{Fills the string with a specified number of 0 values at the beginning}    \\ \hline 
+\end{array}
+$$
+
+### Upper case and lower case
+
+#### <span style="color:orange">The capitalize() Method</span>
+
+##### Definition and Usage
+
+The capitalize() method returns a string where the first character is upper case, and the rest is lower case.
+
+##### Syntax
+
+string.capitalize()
+
+##### Parameter Values
+
+No parameters
+
+```{python}
+#Upper case the first letter in this sentence:
+#The first character is converted to upper case, and the rest are converted to lower case:
+txt = "hello, And welcome to My world."
+x = txt.capitalize()
+print (x)
+```
+
+#### <span style="color:orange">The casefold() Method </span>
+
+##### Definition and Usage
+
+The casefold() method returns a string where all the characters are lower case.
+
+This method is similar to the lower() method, but the casefold() method is stronger, more aggressive, meaning that it will convert more characters into lower case, and will find more matches when comparing two strings and both are converted using the casefold() method.
+
+##### Syntax
+
+string.casefold()
+
+##### Parameter Values
+
+No parameters
+
+```{python}
+#Make the string lower case:
+txt = "Hello, And WelcomE To My World!"
+x = txt.casefold()
+print(x)
+```
+
+#### <span style="color:orange">The islower() Method</span>
+
+
+Check if all the characters in the text are in lower case:
+
+
+##### Definition and Usage
+
+The islower() method returns True if all the characters are in lower case, otherwise False.
+
+Numbers, symbols and spaces are not checked, only alphabet characters.
+
+##### Syntax
+
+string.islower()
+
+##### Parameter Values
+
+No parameters.
+
+```{python}
+a = "Hello world!"
+print(a.islower())
+b = "hello 123"
+print(b.islower())
+c = "mynameisPeter"
+print(c.islower())
+```
+
+
+
+#### <span style="color:orange">The isupper() Method</span>
+
+
+Check if all the characters in the text are in upper case:
+
+##### Definition and Usage
+
+The isupper() method returns True if all the characters are in upper case, otherwise False.
+
+Numbers, symbols and spaces are not checked, only alphabet characters.
+
+##### Syntax
+
+string.isupper()
+
+##### Parameter Values
+
+No parameters.
+
+```{python}
+#Check if all the characters in the texts are in upper case:
+a = "Hello World!"
+print(a.isupper())
+b = "hello 123"
+print(b.isupper())
+c = "MY NAME IS PETER"
+print(c.isupper())
+```
+
+
+#### <span style="color:orange">The lower() Method</span>
+
+
+Lower case the string
+
+
+##### Definition and Usage
+
+The lower() method returns a string where all characters are lower case.
+
+
+ Symbols and Numbers are ignored.
+
+##### Syntax
+
+string.lower()
+
+##### Parameter Values
+
+No parameters
+
+
+```{python}
+txt = "Hello my FRIENDS"
+x = txt.lower()
+print(x)
+```
+
+
+
+
+#### <span style="color:orange">The swapcase() Method</span>
+
+
+Make the lower case letters upper case and the upper case letters lower case:
+
+##### Definition and Usage
+
+The swapcase() method returns a string where all the upper case letters are lower case and vice versa.
+
+##### Syntax
+
+string.swapcase()
+
+##### Parameter Values
+
+No parameters.
+
+```{python}
+txt = "Hello My Name Is PETER"
+x = txt.swapcase()
+print(x)
+```
+
+
+
+#### <span style="color:orange">The upper() Method</span>
+
+
+Upper case the string:
+
+##### Definition and Usage
+
+The upper() method returns a string where all characters are in upper case.
+
+ Symbols and Numbers are ignored.
+
+##### Syntax
+
+string.upper()
+
+##### Parameter Values
+
+No parameters
+
+```{python}
+
+txt = "Hello my friends"
+x = txt.upper()
+print(x)
+```
+
+
+#### <span style="color:orange">The title() Method</span>
+
+Make the first letter in each word upper case.
+
+##### Definition and Usage
+
+The title() method returns a string where the first character in every word is upper case. Like a header, or a title.
+
+If the word contains a number or a symbol, the first letter after that will be converted to upper case.
+
+##### Syntax
+
+string.title()
+
+
+##### Parameter Values
+
+No parameters.
+
+```{python}
+#Example
+#Make the first letter in each word upper case:
+txt = "Welcome to my 2nd world"
+x = txt.title()
+print(x)
+```
+
+
+```{python}
+#Note that the first letter after a non-alphabet letter is converted into a upper case letter:
+txt = "hello b2b2b2 and 3g3g3g"
+x = txt.title()
+print(x)
+```
+
+
+
+#### <span style="color:orange">The istitle() Method</span>
+
+Check if each word start with an upper case letter.
+
+##### Definition and Usage
+
+The istitle() method returns True if all words in a text start with a upper case letter, AND the rest of the word are lower case letters, otherwise False.
+
+Symbols and numbers are ignored.
+
+##### Syntax
+
+string.istitle()
+
+##### Parameter Values
+
+No parameters.
+
+
+
+
+```{python}
+txt = "Hello, And Welcome To My World!"
+x = txt.istitle()
+print(x)
+```
+
+
+
+```{python}
+#Check if each word start with an upper case letter:
+a = "HELLO, AND WELCOME TO MY WORLD"
+print(a.istitle())
+b = "Hello"
+print(b.istitle())
+c = "22 Names"
+print(c.istitle())
+d = "This Is %'!?"
+print(d.istitle())
+```
+
+
+
+
+### format()
+
+
+#### <span style="color:orange">The format() Method</span>
+
+
+
+Insert the price inside the placeholder, the price should be in fixed point, two-decimal format:
+
+```{python}
+txt = "For only {price:.2f} dollars!"
+print(txt.format(price = 49))
+```
+
+##### Definition and Usage
+
+The format() method formats the specified value(s) and insert them inside the string's placeholder.
+
+The placeholder is defined using curly brackets: {}. Read more about the placeholders in the Placeholder section below.
+
+The format() method returns the formatted string.
+
+##### Syntax
+
+string.format(value1, value2...)
+
+##### Parameter Values
+
+$$
+\begin{array}{|c|c|}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value1, value2, } \dots	& \text{Required. One or more values that should be formatted and inserted in the string.}\\
+	& \text{The values are either a list of values separated by commas, a key=value list, or a combination of both.}\\ 
+  & \text{The values can be of any data type.}
+\end{array}
+$$
+
+##### The Placeholders
+
+The placeholders can be identified using named indexes <span style="color:red">{price}</span>, numbered indexes <span style="color:red">{0}</span>, or even empty placeholders <span style="color:red">{}</span>.
+
+```{python}
+#Using different placeholder values:
+txt1 = "My name is {fname}, I'm {age}".format(fname = "John", age = 36)
+print(txt1)
+txt2 = "My name is {0}, I'm {1}".format("John",36)
+print(txt2)
+txt3 = "My name is {}, I'm {}".format("John",36)
+print(txt3)
+```
+
+##### Formatting Types
+
+Inside the placeholders you can add a formatting type to format the result:
+
+* :<		Left aligns the result (within the available space)
+* :>		Right aligns the result (within the available space)
+* :^		Center aligns the result (within the available space)
+* :=		Places the sign to the left most position
+* :+		Use a plus sign to indicate if the result is positive or negative
+* :-		Use a minus sign for negative values only
+* : 		Use a space to insert an extra space before positive numbers (and a minus sign before negative numbers)
+* :,		Use a comma as a thousand separator
+* :_		Use a underscore as a thousand separator
+* :b		Binary format
+* :c		Converts the value into the corresponding unicode character
+* :d		Decimal format
+* :e		Scientific format, with a lower case e
+* :E		Scientific format, with an upper case E
+* :f		Fix point number format
+* :F		Fix point number format, in uppercase format (show inf and nan as INF and NAN)
+* :g		General format
+* :G		General format (using a upper case E for scientific notations)
+* :o		Octal format
+* :x		Hex format, lower case
+* :X		Hex format, upper case
+* :n		Number format
+* :%		Percentage format
+
+
+
+### Formatting Types
+
+
+
+#### <span style="color:orange"> :<		Left aligns the result (within the available space)  </span>
+
+```{python}
+#To demonstrate, we insert the number 8 to set the available space for the value to 8 characters.
+#Use "<" to left-align the value:
+txt = "We have {:<8} chickens."
+print(txt.format(49))
+``` 
+
+#### <span style="color:orange"> :>		Right aligns the result (within the available space)  </span>
+```{python}
+#To demonstrate, we insert the number 8 to set the available space for the value to 8 characters.
+#Use ">" to right-align the value:
+txt = "We have {:>8} chickens."
+print(txt.format(49))
+```
+
+#### <span style="color:orange"> :^		Center aligns the result (within the available space)  </span>
+```{python}
+#To demonstrate, we insert the number 8 to set the available space for the value to 8 characters.
+#Use "^" to center-align the value:
+txt = "We have {:^8} chickens."
+print(txt.format(49))
+
+```
+
+#### <span style="color:orange"> :=		Places the sign to the left most position  </span>
+```{python}
+#To demonstrate, we insert the number 8 to specify the available space for the value.
+#Use "=" to place the plus/minus sign at the left most position:
+txt = "The temperature is {:=8} degrees celsius."
+print(txt.format(-5))
+
+```
+
+#### <span style="color:orange"> :+		Use a plus sign to indicate if the result is positive or negative  </span>
+```{python}
+#Use "+" to always indicate if the number is positive or negative:
+txt = "The temperature is between {:+} and {:+} degrees celsius."
+print(txt.format(-3, 7))
+
+```
+
+#### <span style="color:orange"> :-		Use a minus sign for negative values only  </span>
+```{python}
+#Use "-" to always indicate if the number is negative (positive numbers are displayed without any sign):
+txt = "The temperature is between {:-} and {:-} degrees celsius."
+print(txt.format(-3, 7))
+
+```
+
+#### <span style="color:orange"> : 		Use a space to insert an extra space before positive numbers (and a minus sign before negative numbers)  </span>
+```{python}
+#Use " " (a space) to insert a space before positive numbers and a minus sign before negative numbers:
+txt = "The temperature is between {: } and {: } degrees celsius."
+print(txt.format(-3, 7))
+```
+
+#### <span style="color:orange"> :,		Use a comma as a thousand separator  </span>
+```{python}
+#Use "," to add a comma as a thousand separator:
+txt = "The universe is {:,} years old."
+print(txt.format(13800000000))
+
+```
+
+#### <span style="color:orange"> :_		Use a underscore as a thousand separator  </span>
+```{python}
+#Use "_" to add a underscore character as a thousand separator:
+txt = "The universe is {:_} years old."
+print(txt.format(13800000000))
+
+``` 
+
+#### <span style="color:orange">  :b		Binary format </span>
+```{python}
+#Use "b" to convert the number into binary format:
+txt = "The binary version of {0} is {0:b}"
+print(txt.format(5))
+
+```
+
+#### <span style="color:orange"> :c		Converts the value into the corresponding unicode character  </span>
+```{python}
+
+```
+
+#### <span style="color:orange">  :d		Decimal format </span>
+```{python}
+#Use "d" to convert a number, in this case a binary number, into decimal number format:
+
+txt = "We have {:d} chickens."
+print(txt.format(0b101))
+``` 
+
+#### <span style="color:orange">  :e		Scientific format, with a lower case e </span>
+```{python}
+#Use "e" to convert a number into scientific number format (with a lower-case e):
+
+txt = "We have {:e} chickens."
+print(txt.format(5))
+```
+
+#### <span style="color:orange"> :E		Scientific format, with an upper case E  </span>
+```{python}
+#Use "E" to convert a number into scientific number format (with an upper-case E):
+
+txt = "We have {:E} chickens."
+print(txt.format(5))
+``` 
+
+#### <span style="color:orange"> :f		Fix point number format  </span>
+```{python}
+#Use "f" to convert a number into a fixed point number, default with 6 decimals, but use a period followed by a number to specify the number of decimals:
+
+txt = "The price is {:.2f} dollars."
+print(txt.format(45))
+
+#without the ".2" inside the placeholder, this number will be displayed like this:
+
+txt = "The price is {:f} dollars."
+print(txt.format(45))
+```
+
+#### <span style="color:orange"> :F		Fix point number format, in uppercase format (show inf and nan as INF and NAN)  </span>
+```{python}
+#Use "F" to convert a number into a fixed point number, but display inf and nan as INF and NAN:
+
+x = float('inf')
+
+txt = "The price is {:F} dollars."
+print(txt.format(x))
+
+#same example, but with a lower case f:
+
+txt = "The price is {:f} dollars."
+print(txt.format(x))
+```
+
+#### <span style="color:orange"> :g		General format  </span>
+```{python}
+
+```
+
+#### <span style="color:orange"> :G		General format (using a upper case E for scientific notations)  </span>
+```{python}
+
+```
+
+#### <span style="color:orange"> :o		Octal format  </span>
+```{python}
+#Use "o" to convert the number into octal format:
+
+txt = "The octal version of {0} is {0:o}"
+
+print(txt.format(10))
+```
+
+#### <span style="color:orange"> :x		Hex format, lower case  </span>
+```{python}
+#Use "x" to convert the number into Hex format:
+
+txt = "The Hexadecimal version of {0} is {0:x}"
+
+print(txt.format(255))
+```
+
+#### <span style="color:orange"> :X		Hex format, upper case  </span>
+```{python}
+#Use "X" to convert the number into upper-case Hex format:
+
+txt = "The Hexadecimal version of {0} is {0:X}"
+
+print(txt.format(255))
+```
+
+#### <span style="color:orange">  :n		Number format </span>
+```{python}
+
+```
+
+#### <span style="color:orange">  :%		Percentage format </span>
+```{python}
+#Use "%" to convert the number into a percentage format:
+txt = "You scored {:%}"
+print(txt.format(0.25))
+#Or, without any decimals:
+txt = "You scored {:.0%}"
+print(txt.format(0.25))
+```
+
+
+
+## Contact us
+
+Contact me at masoudfaridi@modares.ac.ir or masoud1faridi@gmail.com
+

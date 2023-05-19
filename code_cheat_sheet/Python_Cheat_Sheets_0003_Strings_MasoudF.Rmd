@@ -1,0 +1,2022 @@
+---
+title: "Python Cheat Sheets-0002-Strings-MasoudF"
+output: 
+  html_document:
+    code_folding: show
+    theme:
+      bg: "#202123"
+      fg: "#B8BCC2"
+      primary: "#EA80FC"
+      secondary: "#00DAC6"
+      base_font:
+        google: Prompt
+      heading_font:
+        google: Proza Libre
+---
+
+```{r setup, include=FALSE}
+if (requireNamespace("thematic")) 
+  thematic::thematic_rmd(font = "auto")
+library(reticulate)
+reticulate::use_python("C:/Program Files/Python310/python.exe")
+```
+
+ 
+
+## <span style="color:red"> Other Methods </span> {.tabset .tabset-pills}
+
+
+### center()
+
+#### <span style="color:orange"> String center() Method </span>
+
+Print the word "banana", taking up the space of 20 characters, with "banana" in the middle:
+```{python}
+txt = "banana"
+
+x = txt.center(20)
+
+print(x)
+```
+
+#### Definition and Usage
+
+The center() method will center align the string, using a specified character (space is default) as the fill character.
+
+#### Syntax
+
+string.center(length, character)
+
+#### Parameter Values
+
+$$
+\begin{array}{c|l}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{length}	& \text{Required. The length of the returned string} \\
+\text{character} &	\text{Optional. The character to fill the missing space on each side. Default is " " (space)}
+\end{array}
+$$
+```{python}
+#Using the letter "O" as the padding character:
+txt = "banana"
+x = txt.center(20, "O")
+print(x)
+```
+
+
+### count()
+
+#### <span style="color:orange"> The count() Method </span>
+
+Return the number of times the value "apple" appears in the string:
+
+```{python}
+txt = "I love apples, apple are my favorite fruit"
+
+x = txt.count("apple")
+
+print(x)
+```
+
+
+#### Definition and Usage
+
+The count() method returns the number of times a specified value appears in the string.
+
+#### Syntax
+
+string.count(value, start, end)
+
+#### Parameter Values
+
+$$
+\begin{array}{c|l}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value}	& \text{Required. A String. The string to value to search for} \\ 
+\text{start}	& \text{Optional. An Integer. The position to start the search. Default is 0} \\ 
+\text{end} &	\text{Optional. An Integer. The position to end the search. Default is the end of the string}
+\end{array}
+$$
+```{python}
+#Search from position 10 to 24:
+
+txt = "I love apples, apple are my favorite fruit"
+
+x = txt.count("apple", 10, 24)
+
+print(x)
+```
+
+
+### encode()
+
+#### <span style="color:orange"> Python String encode() Method </span>
+
+UTF-8 encode the string
+```{python}
+txt = "My name is Ståle"
+
+x = txt.encode()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The encode() method encodes the string, using the specified encoding. If no encoding is specified, UTF-8 will be used.
+
+#### Syntax
+
+string.encode(encoding=encoding, errors=errors)
+
+$$
+\begin{array}{c|l}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{encoding}	& 	\text{Optional. A String specifying the encoding to use. Default is UTF-8} \\ 
+\text{errors} &	\text{Optional. A String specifying the error method. Legal values are:} \\ 
+ &	\text{'backslashreplace'	- uses a backslash instead of the character that could not be encoded} \\ 
+ &	\text{'ignore'	- ignores the characters that cannot be encoded} \\ 
+ &	\text{'namereplace'	- replaces the character with a text explaining the character} \\ 
+ &	\text{'strict'	- Default, raises an error on failure} \\ 
+ &	\text{'replace'	- replaces the character with a questionmark} \\ 
+ &	\text{'xmlcharrefreplace'	- replaces the character with an xml character} \\ 
+\end{array}
+$$
+```{python}
+#These examples uses ascii encoding, and a character that cannot be encoded, showing the result with different errors:
+
+txt = "My name is Ståle"
+
+print(txt.encode(encoding="ascii",errors="backslashreplace"))
+print(txt.encode(encoding="ascii",errors="ignore"))
+print(txt.encode(encoding="ascii",errors="namereplace"))
+print(txt.encode(encoding="ascii",errors="replace"))
+print(txt.encode(encoding="ascii",errors="xmlcharrefreplace"))
+```
+
+
+### endswith()
+
+#### <span style="color:orange"> Python String endswith() Method </span>
+
+Check if the string ends with a punctuation sign (.):
+
+```{python}
+txt = "Hello, welcome to my world."
+
+x = txt.endswith(".")
+
+print(x)
+```
+
+#### Definition and Usage
+
+The endswith() method returns True if the string ends with the specified value, otherwise False.
+
+#### Syntax
+
+string.endswith(value, start, end)
+
+#### Parameter Values
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value}	& 	\text{Required. The value to check if the string ends with} \\ 
+\text{start}	& 	\text{Optional. An Integer specifying at which position to start the search} \\ 
+\text{end} &	\text{Optional. An Integer specifying at which position to end the search}
+\end{array}
+$$
+
+```{python}
+#Example
+#Check if the string ends with the phrase "my world.":
+txt = "Hello, welcome to my world."
+x = txt.endswith("my world.")
+print(x)
+```
+
+
+```{python}
+#Example
+#Check if position 5 to 11 ends with the phrase "my world.":
+txt = "Hello, welcome to my world."
+x = txt.endswith("my world.", 5, 11)
+print(x)
+```
+
+
+
+
+### expandtabs()
+
+#### <span style="color:orange"> Python String expandtabs() Method </span>
+
+
+Set the tab size to 2 whitespaces:
+
+```{python}
+txt = "H\te\tl\tl\to"
+
+x =  txt.expandtabs(2)
+
+print(x)
+```
+
+#### Definition and Usage
+
+The expandtabs() method sets the tab size to the specified number of whitespaces.
+
+#### Syntax
+
+string.expandtabs(tabsize)
+
+#### Parameter Values
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{tabsize}	& 	\text{Optional. A number specifying the tabsize. Default tabsize is 8} 
+\end{array}
+$$
+
+```{python}
+#Example
+#See the result using different tab sizes:
+
+txt = "H\te\tl\tl\to"
+
+print(txt)
+print(txt.expandtabs())
+print(txt.expandtabs(2))
+print(txt.expandtabs(4))
+print(txt.expandtabs(10))
+```
+
+
+
+
+### find()
+
+#### <span style="color:orange"> Python String find() Method </span>
+
+Where in the text is the word "welcome"?:
+
+
+```{python}
+txt = "Hello, welcome to my world."
+
+x = txt.find("welcome")
+
+print(x)
+```
+
+#### Definition and Usage
+
+The find() method finds the first occurrence of the specified value.
+
+The find() method returns -1 if the value is not found.
+
+The find() method is almost the same as the index() method, the only difference is that the index() method raises an exception if the value is not found. (See example below)
+
+#### Syntax
+
+string.find(value, start, end)
+
+#### Parameter Values
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value}	& 	\text{Required. The value to search for} \\ 
+\text{start}	& 	\text{Optional. Where to start the search. Default is 0} \\ 
+\text{end} &	\text{Optional. Where to end the search. Default is to the end of the string}
+\end{array}
+$$
+
+
+
+```{python}
+#Example
+#Where in the text is the first occurrence of the letter "e"?:
+
+txt = "Hello, welcome to my world."
+
+x = txt.find("e")
+
+print(x)
+```
+
+
+```{python}
+#Example
+#Where in the text is the first occurrence of the letter "e" when you only search between position 5 and 10?:
+
+txt = "Hello, welcome to my world."
+
+x = txt.find("e", 5, 10)
+
+print(x)
+```
+
+
+```{python}
+#Example
+#If the value is not found, the find() method returns -1, but the index() method will raise an exception:
+
+txt = "Hello, welcome to my world."
+
+print(txt.find("q"))
+
+#print(txt.index("q"))
+```
+
+
+
+
+
+### index()
+
+ 
+#### <span style="color:orange"> Python String index() Method </span>
+
+
+Where in the text is the word "welcome"?:
+
+
+```{python}
+txt = "Hello, welcome to my world."
+
+x = txt.index("welcome")
+
+print(x)
+```
+
+#### Definition and Usage
+
+The index() method finds the first occurrence of the specified value.
+
+The index() method raises an exception if the value is not found.
+
+The index() method is almost the same as the find() method, the only difference is that the find() method returns -1 if the value is not found. (See example below)
+
+#### Syntax
+
+string.index(value, start, end)
+
+#### Parameter Values
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value}	& 	\text{Required. The value to search for} \\ 
+\text{start}	& 	\text{Optional. Where to start the search. Default is 0} \\ 
+\text{end} &	\text{Optional. Where to end the search. Default is to the end of the string}
+\end{array}
+$$
+
+	
+	
+
+```{python}
+#Example
+#Where in the text is the first occurrence of the letter "e"?:
+
+txt = "Hello, welcome to my world."
+
+x = txt.index("e")
+
+print(x)
+```
+
+
+
+```{python}
+#Example
+#Where in the text is the first occurrence of the letter "e" when you only search between position 5 and 10?:
+
+txt = "Hello, welcome to my world."
+
+x = txt.index("e", 5, 10)
+
+print(x)
+```
+
+
+If the value is not found, the find() method returns -1, but the index() method will raise an exception:
+
+
+```{python}
+txt = "Hello, welcome to my world."
+
+print(txt.find("q"))
+#print(txt.index("q"))
+```
+
+
+
+
+
+
+### format_map()
+
+#### <span style="color:orange"> format_map() </span>
+
+
+### isalnum()
+
+#### <span style="color:orange"> Python String isalnum() Method </span>
+
+
+Check if all the characters in the text are alphanumeric:
+
+
+```{python}
+txt = "Company12"
+
+x = txt.isalnum()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The isalnum() method returns True if all the characters are alphanumeric, meaning alphabet letter (a-z) and numbers (0-9).
+
+Example of characters that are not alphanumeric: (space)!#%&? etc.
+
+#### Syntax
+
+string.isalnum()
+
+
+#### Parameter Values
+
+No parameters.
+
+#### Example
+
+Check if all the characters in the text is alphanumeric:
+
+```{python}
+txt = "Company 12"
+
+x = txt.isalnum()
+
+print(x)
+```
+
+
+### isalpha()
+
+#### <span style="color:orange"> Python String isalpha() Method  </span>
+
+
+
+
+Check if all the characters in the text are letters:
+
+
+```{python}
+txt = "CompanyX"
+
+x = txt.isalpha()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The isalpha() method returns True if all the characters are alphabet letters (a-z).
+
+Example of characters that are not alphabet letters: (space)!#%&? etc.
+
+#### Syntax
+
+string.isalpha()
+
+
+#### Parameter Values
+
+No parameters.
+
+
+Example
+
+
+Check if all the characters in the text is alphabetic:
+
+
+```{python}
+txt = "Company10"
+
+x = txt.isalpha()
+
+print(x)
+```
+
+
+
+
+
+### isdecimal()
+
+
+#### <span style="color:orange"> Python String isdecimal() Method </span>
+
+
+
+
+Check if all the characters in the unicode object are decimals:
+
+
+```{python}
+txt = "\u0033" #unicode for 3
+
+x = txt.isdecimal()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The isdecimal() method returns True if all the characters are decimals (0-9).
+
+This method is used on unicode objects.
+
+#### Syntax
+
+string.isdecimal()
+
+
+#### Parameter Values
+
+No parameters.
+
+
+Example
+
+Check if all the characters in the unicode are decimals:
+
+
+```{python}
+a = "\u0030" #unicode for 0
+print(a.isdecimal())
+```
+
+```{python}
+b = "\u0047" #unicode for G
+print(b.isdecimal())
+```
+
+
+
+
+### isdigit()
+
+
+#### <span style="color:orange"> Python String isdigit() Method </span>
+
+
+Check if all the characters in the text are digits:
+
+
+```{python}
+txt = "50800"
+
+x = txt.isdigit()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The isdigit() method returns True if all the characters are digits, otherwise False.
+
+Exponents, like ², are also considered to be a digit.
+
+#### Syntax
+
+string.isdigit()
+
+#### Parameter Values
+
+No parameters.
+
+
+Example
+
+Check if all the characters in the text are digits:
+
+
+```{python}
+a = "\u0030" #unicode for 0
+print(a.isdigit())
+```
+
+```{python}
+b = "\u00B2" #unicode for ²
+print(b.isdigit())
+```
+
+
+
+
+
+### isidentifier()
+
+
+#### <span style="color:orange"> Python String isidentifier() Method </span>
+
+
+Check if the string is a valid identifier:
+
+
+```{python}
+txt = "Demo"
+
+x = txt.isidentifier()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The isidentifier() method returns True if the string is a valid identifier, otherwise False.
+
+A string is considered a valid identifier if it only contains alphanumeric letters (a-z) and (0-9), or underscores (_). A valid identifier cannot start with a number, or contain any spaces.
+
+#### Syntax
+
+string.isidentifier()
+
+
+#### Parameter Values
+
+No parameters.
+
+
+Example
+
+
+Check if the strings are valid identifiers:
+
+
+```{python}
+a = "MyFolder"
+print(a.isidentifier())
+
+b = "Demo002"
+print(b.isidentifier())
+
+c = "2bring"
+print(c.isidentifier())
+
+d = "my demo"
+print(d.isidentifier())
+```
+
+
+
+
+
+### isnumeric()
+
+
+#### <span style="color:orange"> Python String isnumeric() Method </span>
+
+Check if all the characters in the text are numeric:
+
+
+```{python}
+txt = "565543"
+
+x = txt.isnumeric()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The isnumeric() method returns True if all the characters are numeric (0-9), otherwise False.
+
+Exponents, like ² and ¾ are also considered to be numeric values.
+
+"-1" and "1.5" are NOT considered numeric values, because all the characters in the string must be numeric, and the - and the . are not.
+
+#### Syntax
+
+string.isnumeric()
+
+#### Parameter Values
+
+No parameters.
+
+
+Example
+
+Check if the characters are numeric:
+
+
+```{python}
+a = "\u0030" #unicode for 0
+print(a.isnumeric())
+
+b = "\u00B2" #unicode for &sup2;
+print(b.isnumeric())
+
+c = "10km2"
+print(c.isnumeric())
+
+d = "-1"
+print(d.isnumeric())
+
+e = "1.5"
+print(e.isnumeric())
+```
+
+
+
+
+
+
+### isprintable()
+
+
+#### <span style="color:orange"> Python String isprintable() Method </span>
+
+
+
+Check if all the characters in the text are printable:
+
+```{python}
+txt = "Hello! Are you #1?"
+
+x = txt.isprintable()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The isprintable() method returns True if all the characters are printable, otherwise False.
+
+Example of none printable character can be carriage return and line feed.
+
+#### Syntax
+
+string.isprintable()
+
+#### Parameter Values
+
+No parameters.
+
+
+Example
+
+Check if all the characters in the text are printable:
+
+```{python}
+txt = "Hello!\nAre you #1?"
+
+x = txt.isprintable()
+
+print(x)
+```
+
+
+
+
+
+
+
+
+### isspace()
+
+
+#### <span style="color:orange"> Python String isspace() Method </span>
+
+
+
+Check if all the characters in the text are whitespaces:
+
+```{python}
+txt = "   "
+
+x = txt.isspace()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The isspace() method returns True if all the characters in a string are whitespaces, otherwise False.
+
+#### Syntax
+
+string.isspace()
+
+#### Parameter Values
+
+No parameters.
+
+
+Example
+
+Check if all the characters in the text are whitespaces:
+
+
+```{python}
+txt = "   s   "
+
+x = txt.isspace()
+
+print(x)
+```
+
+
+
+
+
+
+
+
+### join()
+
+
+#### <span style="color:orange"> Python String join() Method </span>
+
+
+Join all items in a tuple into a string, using a hash character as separator:
+
+
+```{python}
+myTuple = ("John", "Peter", "Vicky")
+
+x = "#".join(myTuple)
+
+print(x)
+```
+
+#### Definition and Usage
+
+The join() method takes all items in an iterable and joins them into one string.
+
+A string must be specified as the separator.
+
+#### Syntax
+
+string.join(iterable)
+
+#### Parameter Values
+
+
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{iterable}	& 	\text{Required. Any iterable object where all the returned values are strings} 
+\end{array}
+$$
+
+Example
+
+Join all items in a dictionary into a string, using a the word "TEST" as separator:
+
+
+```{python}
+myDict = {"name": "John", "country": "Norway"}
+mySeparator = "TEST"
+x = mySeparator.join(myDict)
+print(x)
+```
+
+<span style="color:yellow">
+Note: When using a dictionary as an iterable, the returned values are the keys, not the values.
+</span>
+
+
+
+
+
+
+
+
+### ljust()
+
+
+#### <span style="color:orange"> Python String ljust() Method </span>
+
+
+
+
+Return a 20 characters long, left justified version of the word "banana":
+
+
+```{python}
+txt = "banana"
+
+x = txt.ljust(20)
+
+print(x, "is my favorite fruit.")
+```
+
+<span style="color:yellow">
+Note: In the result, there are actually 14 whitespaces to the right of the word banana.
+</span>
+
+#### Definition and Usage
+
+The ljust() method will left align the string, using a specified character (space is default) as the fill character.
+
+#### Syntax
+
+string.ljust(length, character)
+
+#### Parameter Values
+
+Parameter	Description
+	
+	
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{length}	& 	\text{Required. The length of the returned string} \\ 
+\text{character}	& 	\text{Optional. A character to fill the missing space (to the right of the string). Default is " " (space).} 
+\end{array}
+$$
+
+Example
+
+Using the letter "O" as the padding character:
+
+
+```{python}
+txt = "banana"
+
+x = txt.ljust(20, "O")
+
+print(x)
+```
+
+
+
+
+
+
+
+
+
+
+### lstrip()
+
+
+#### <span style="color:orange"> Python String lstrip() Method </span>
+
+
+
+
+Remove spaces to the left of the string:
+
+```{python}
+txt = "     banana     "
+
+x = txt.lstrip()
+
+print("of all fruits", x, "is my favorite")
+```
+
+#### Definition and Usage
+
+The lstrip() method removes any leading characters (space is the default leading character to remove)
+
+#### Syntax
+
+string.lstrip(characters)
+
+
+#### Parameter Values
+
+Parameter	Description
+	
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{characters}	& 	\text{Optional. A set of characters to remove as leading characters} 
+\end{array}
+$$
+
+
+Example
+
+Remove the leading characters:
+
+```{python}
+txt = ",,,,,ssaaww.....banana"
+
+x = txt.lstrip(",.asw")
+
+print(x)
+```
+
+
+
+
+
+
+### maketrans()
+
+
+#### <span style="color:orange">  Python String maketrans() Method </span>
+
+
+Create a mapping table, and use it in the translate() method to replace any "S" characters with a "P" character:
+
+
+```{python}
+txt = "Hello Sam!"
+mytable = txt.maketrans("S", "P")
+print(txt.translate(mytable))
+```
+
+#### Definition and Usage
+
+The maketrans() method returns a mapping table that can be used with the translate() method to replace specified characters.
+
+#### Syntax
+
+string.maketrans(x, y, z)
+
+#### Parameter Values
+
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{x	}	& 	\text{Required. If only one parameter is specified, this has to be a dictionary describing how to perform the replace .} \\ 
+& \text{If two or more parameters are specified, this parameter has to be a string specifying the characters you want to replace.} \\ \hline 
+\text{y}	& 	\text{Optional. A string with the same length as parameter x. Each character in the first parameter will be replaced with the corresponding character in this string.} \\ \hline
+\text{z} &	\text{Optional. A string describing which characters to remove from the original string.}
+\end{array}
+$$
+
+
+
+
+
+Example
+
+Use a mapping table to replace many characters:
+
+```{python}
+txt = "Hi Sam!"
+x = "mSa"
+y = "eJo"
+mytable = txt.maketrans(x, y)
+print(txt.translate(mytable))
+```
+
+Example
+
+The third parameter in the mapping table describes characters that you want to remove from the string:
+
+```{python}
+txt = "Good night Sam!"
+x = "mSa"
+y = "eJo"
+z = "odnght"
+mytable = txt.maketrans(x, y, z)
+print(txt.translate(mytable))
+```
+
+Example
+
+The maketrans() method itself returns a dictionary describing each replacement, in unicode:
+
+```{python}
+txt = "Good night Sam!"
+x = "mSa"
+y = "eJo"
+z = "odnght"
+print(txt.maketrans(x, y, z))
+```
+
+
+
+
+### partition()
+
+
+#### <span style="color:orange"> Python String partition() Method </span>
+
+
+
+Search for the word "bananas", and return a tuple with three elements:
+
+1. everything before the "match"
+2. the "match"
+3. everything after the "match"
+
+```{python}
+txt = "I could eat bananas all day"
+
+x = txt.partition("bananas")
+
+print(x)
+```
+
+#### Definition and Usage
+
+The partition() method searches for a specified string, and splits the string into a tuple containing three elements.
+
+The first element contains the part before the specified string.
+
+The second element contains the specified string.
+
+The third element contains the part after the string.
+
+<span style="color:yellow">
+Note: This method searches for the first occurrence of the specified string.
+</span>
+
+#### Syntax
+
+string.partition(value)
+
+#### Parameter Values
+
+
+
+	
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value}	& 	\text{Required. The string to search for} 
+\end{array}
+$$
+
+Example
+
+If the specified value is not found, the partition() method returns a tuple containing: 
+1- the whole string, 
+2- an empty string, 
+3- an empty string:
+
+```{python}
+txt = "I could eat bananas all day"
+
+x = txt.partition("apples")
+
+print(x)
+```
+
+
+
+
+
+
+### replace()
+
+
+#### <span style="color:orange"> Python String replace() Method </span>
+
+
+
+
+Replace the word "bananas":
+
+```{python}
+txt = "I like bananas"
+
+x = txt.replace("bananas", "apples")
+
+print(x)
+```
+
+
+#### Definition and Usage
+
+The replace() method replaces a specified phrase with another specified phrase.
+
+<span style="color:yellow">Note: All occurrences of the specified phrase will be replaced, if nothing else is specified.</span>
+
+#### Syntax
+
+string.replace(oldvalue, newvalue, count)
+
+#### Parameter Values
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{oldvalue}	& 	\text{Required. The string to search for} \\ 
+\text{newvalue}	& 	\text{Required. The string to replace the old value with} \\ 
+\text{count} &	\text{	Optional. A number specifying how many occurrences of the old value you want to replace. Default is all occurrences}
+\end{array}
+$$
+
+Example
+
+Replace all occurrence of the word "one":
+
+```{python}
+txt = "one one was a race horse, two two was one too."
+
+x = txt.replace("one", "three")
+
+print(x)
+```
+
+Example
+
+Replace the two first occurrence of the word "one":
+```{python}
+txt = "one one was a race horse, two two was one too."
+
+x = txt.replace("one", "three", 2)
+
+print(x)
+```
+
+
+
+
+
+### rfind()
+
+
+#### <span style="color:orange"> Python String rfind() Method </span>
+
+Example
+
+Where in the text is the last occurrence of the string "casa"?:
+
+```{python}
+txt = "Mi casa, su casa."
+
+x = txt.rfind("casa")
+
+print(x)
+```
+
+#### Definition and Usage
+
+The rfind() method finds the last occurrence of the specified value.
+
+The rfind() method returns -1 if the value is not found.
+
+The rfind() method is almost the same as the rindex() method. See example below.
+
+#### Syntax
+
+string.rfind(value, start, end)
+
+#### Parameter Values
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value}	& 	\text{Required. The value to search for} \\ 
+\text{start}	& 	\text{Optional. Where to start the search. Default is 0} \\ 
+\text{end} &	\text{Optional. Where to end the search. Default is to the end of the string}
+\end{array}
+$$
+
+
+
+Example
+
+
+Where in the text is the last occurrence of the letter "e"?:
+
+
+```{python}
+txt = "Hello, welcome to my world."
+
+x = txt.rfind("e")
+
+print(x)
+```
+
+
+Example
+
+Where in the text is the last occurrence of the letter "e" when you only search between position 5 and 10?:
+
+```{python}
+txt = "Hello, welcome to my world."
+
+x = txt.rfind("e", 5, 10)
+
+print(x)
+```
+
+
+Example
+
+If the value is not found, the rfind() method returns -1, but the rindex() method will raise an exception:
+
+```{python}
+txt = "Hello, welcome to my world."
+
+print(txt.rfind("q"))
+#print(txt.rindex("q"))
+```
+
+
+
+
+
+### rindex()
+
+
+#### <span style="color:orange"> Python String rindex() Method </span>
+
+
+Where in the text is the last occurrence of the string "casa"?:
+
+```{python}
+txt = "Mi casa, su casa."
+
+x = txt.rindex("casa")
+
+print(x)
+```
+
+#### Definition and Usage
+
+The rindex() method finds the last occurrence of the specified value.
+
+The rindex() method raises an exception if the value is not found.
+
+The rindex() method is almost the same as the rfind() method. See example below.
+
+#### Syntax
+
+string.rindex(value, start, end)
+
+#### Parameter Values
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value}	& 	\text{Required. The value to search for} \\ 
+\text{start}	& 	\text{Optional. Where to start the search. Default is 0} \\ 
+\text{end} &	\text{Optional. Where to end the search. Default is to the end of the string}
+\end{array}
+$$
+
+
+Example
+
+Where in the text is the last occurrence of the letter "e"?:
+
+```{python}
+txt = "Hello, welcome to my world."
+
+x = txt.rindex("e")
+
+print(x)
+```
+
+Example
+
+Where in the text is the last occurrence of the letter "e" when you only search between position 5 and 10?:
+
+```{python}
+txt = "Hello, welcome to my world."
+
+x = txt.rindex("e", 5, 10)
+
+print(x)
+```
+
+Example
+
+If the value is not found, the rfind() method returns -1, but the rindex() method will raise an exception:
+
+```{python}
+txt = "Hello, welcome to my world."
+
+print(txt.rfind("q"))
+#print(txt.rindex("q"))
+```
+
+
+
+
+###  rjust()
+
+
+#### <span style="color:orange"> Python String rjust() Method </span>
+
+
+Return a 20 characters long, right justified version of the word "banana":
+
+```{python}
+txt = "banana"
+
+x = txt.rjust(20)
+
+print(x, "is my favorite fruit.")
+```
+
+<span style="color:yellow"> Note: In the result, there are actually 14 whitespaces to the left of the word banana. </span>
+
+
+#### Definition and Usage
+
+The rjust() method will right align the string, using a specified character (space is default) as the fill character.
+
+#### Syntax
+
+string.rjust(length, character)
+
+#### Parameter Values
+
+
+	
+	
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{length}	& 	\text{Required. The length of the returned string} \\ 
+\text{character}	& 	\text{Optional. A character to fill the missing space (to the left of the string). Default is " " (space).} 
+\end{array}
+$$
+
+Example
+
+Using the letter "O" as the padding character:
+
+```{python}
+txt = "banana"
+
+x = txt.rjust(20, "O")
+
+print(x)
+```
+
+
+
+
+
+
+
+
+### rpartition()
+
+
+#### <span style="color:orange"> Python String rpartition() Method </span>
+
+
+Search for the last occurrence of the word "bananas", and return a tuple with three elements:
+
+1. everything before the "match"
+2. the "match"
+3. everything after the "match"
+
+```{python}
+txt = "I could eat bananas all day, bananas are my favorite fruit"
+
+x = txt.rpartition("bananas")
+
+print(x)
+```
+
+#### Definition and Usage
+
+The rpartition() method searches for the last occurrence of a specified string, and splits the string into a tuple containing three elements.
+
+The first element contains the part before the specified string.
+
+The second element contains the specified string.
+
+The third element contains the part after the string.
+
+#### Syntax
+
+string.rpartition(value)
+
+#### Parameter Values
+
+
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value}	& 	\text{	Required. The string to search for} 
+\end{array}
+$$
+Example
+
+If the specified value is not found, the rpartition() method returns a tuple containing: 1 - an empty string, 2 - an empty string, 3 - the whole string:
+
+```{python}
+txt = "I could eat bananas all day, bananas are my favorite fruit"
+
+x = txt.rpartition("apples")
+
+print(x)
+```
+
+
+
+
+### rsplit() 
+
+
+#### <span style="color:orange"> Python String rsplit() Method </span>
+
+
+Split a string into a list, using comma, followed by a space (, ) as the separator:
+
+```{python}
+txt = "apple, banana, cherry"
+
+x = txt.rsplit(", ")
+
+print(x)
+```
+
+#### Definition and Usage
+
+The rsplit() method splits a string into a list, starting from the right.
+
+If no "max" is specified, this method will return the same as the split() method.
+
+<span style="color:yellow"> Note: When maxsplit is specified, the list will contain the specified number of elements plus one. </span>
+
+
+#### Syntax
+
+string.rsplit(separator, maxsplit)
+
+#### Parameter Values
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{separator}	& 	\text{Optional. Specifies the separator to use when splitting the string. By default any whitespace is a separator} \\ 
+\text{maxsplit}	& 	\text{Optional. Specifies how many splits to do. Default value is -1, which is "all occurrences"} \\ 
+\text{} &	\text{}
+\end{array}
+$$
+Example
+
+Split the string into a list with maximum 2 items:
+
+```{python}
+txt = "apple, banana, cherry"
+
+# setting the maxsplit parameter to 1, will return a list with 2 elements!
+x = txt.rsplit(", ", 1)
+
+print(x)
+```
+
+
+
+### rstrip()
+
+
+#### <span style="color:orange">Python String rstrip() Method  </span>
+
+
+Remove any white spaces at the end of the string:
+
+```{python}
+txt = "     banana     "
+
+x = txt.rstrip()
+
+print("of all fruits", x, "is my favorite")
+```
+
+#### Definition and Usage
+
+The rstrip() method removes any trailing characters (characters at the end a string), space is the default trailing character to remove.
+
+#### Syntax
+
+string.rstrip(characters)
+
+#### Parameter Values
+
+
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{characters}	& 	\text{	Optional. A set of characters to remove as trailing characters} 
+\end{array}
+$$
+
+Example
+
+Remove the trailing characters if they are commas, s, q, or w:
+
+```{python}
+txt = "banana,,,,,ssqqqww....."
+
+x = txt.rstrip(",.qsw")
+
+print(x)
+```
+
+
+
+### split()
+
+
+#### <span style="color:orange"> Python String split() Method </span>
+
+
+Split a string into a list where each word is a list item:
+
+```{python}
+txt = "welcome to the jungle"
+
+x = txt.split()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The split() method splits a string into a list.
+
+You can specify the separator, default separator is any whitespace.
+
+<span style="color:yellow"> Note: When maxsplit is specified, the list will contain the specified number of elements plus one.
+ </span>
+
+#### Syntax
+
+string.split(separator, maxsplit)
+
+#### Parameter Values
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{separator}	& 	\text{Optional. Specifies the separator to use when splitting the string. By default any whitespace is a separator} \\ 
+\text{maxsplit}	& 	\text{Optional. Specifies how many splits to do. Default value is -1, which is "all occurrences"} 
+\end{array}
+$$
+
+Example
+
+Split the string, using comma, followed by a space, as a separator:
+```{python}
+txt = "hello, my name is Peter, I am 26 years old"
+
+x = txt.split(", ")
+
+print(x)
+```
+
+Example
+
+Use a hash character as a separator:
+
+```{python}
+txt = "apple#banana#cherry#orange"
+
+x = txt.split("#")
+
+print(x)
+```
+
+Example
+
+Split the string into a list with max 2 items:
+
+```{python}
+txt = "apple#banana#cherry#orange"
+
+# setting the maxsplit parameter to 1, will return a list with 2 elements!
+x = txt.split("#", 1)
+
+print(x)
+```
+
+
+### splitlines()
+
+
+#### <span style="color:orange"> Python String splitlines() Method </span>
+
+
+Split a string into a list where each line is a list item:
+
+```{python}
+txt = "Thank you for the music\nWelcome to the jungle"
+
+x = txt.splitlines()
+
+print(x)
+```
+
+#### Definition and Usage
+
+The splitlines() method splits a string into a list. The splitting is done at line breaks.
+
+#### Syntax
+
+string.splitlines(keeplinebreaks)
+
+#### Parameter Values
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{keeplinebreaks}	& 	\text{Optional. Specifies if the line breaks should be included (True),} \\
+& \text{or not (False). Default value is False
+More Examples} 
+\end{array}
+$$
+
+	
+
+Example
+
+Split the string, but keep the line breaks:
+
+```{python}
+txt = "Thank you for the music\nWelcome to the jungle"
+
+x = txt.splitlines(True)
+
+print(x)
+```
+
+
+
+
+
+### startswith()
+
+
+#### <span style="color:orange"> Python String startswith() Method </span>
+
+
+
+Check if the string starts with "Hello":
+
+```{python}
+txt = "Hello, welcome to my world."
+
+x = txt.startswith("Hello")
+
+print(x)
+```
+
+#### Definition and Usage
+
+The startswith() method returns True if the string starts with the specified value, otherwise False.
+
+#### Syntax
+
+string.startswith(value, start, end)
+
+#### Parameter Values
+
+
+
+
+
+
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{value}	& 	\text{Required. The value to check if the string starts with} \\ 
+\text{start}	& 	\text{Optional. An Integer specifying at which position to start the search} \\ 
+\text{end} &	\text{Optional. An Integer specifying at which position to end the search}
+\end{array}
+$$
+
+Example
+
+Check if position 7 to 20 starts with the characters "wel":
+
+```{python}
+txt = "Hello, welcome to my world."
+
+x = txt.startswith("wel", 7, 20)
+
+print(x)
+```
+
+
+
+### strip()
+
+
+#### <span style="color:orange"> Python String strip() Method </span>
+
+
+
+Remove spaces at the beginning and at the end of the string:
+
+```{python}
+txt = "     banana     "
+
+x = txt.strip()
+
+print("of all fruits", x, "is my favorite")
+```
+
+#### Definition and Usage
+
+The strip() method removes any leading (spaces at the beginning) and trailing (spaces at the end) characters (space is the default leading character to remove)
+
+#### Syntax
+
+string.strip(characters)
+
+#### Parameter Values
+
+
+	
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{characters}	& 	\text{Optional. A set of characters to remove as leading/trailing characters} 
+\end{array}
+$$
+
+Example
+
+Remove the leading and trailing characters:
+
+```{python}
+txt = ",,,,,rrttgg.....banana....rrr"
+
+x = txt.strip(",.grt")
+
+print(x)
+```
+
+
+
+
+
+### translate()
+
+
+<span style="color:orange"> Python String translate() Method </span>
+
+
+Replace any "S" characters with a "P" character:
+
+```{python}
+#use a dictionary with ascii codes to replace 83 (S) with 80 (P):
+mydict = {83:  80}
+txt = "Hello Sam!"
+print(txt.translate(mydict))
+```
+
+#### Definition and Usage
+
+The translate() method returns a string where some specified characters are replaced with the character described in a dictionary, or in a mapping table.
+
+Use the maketrans() method to create a mapping table.
+
+If a character is not specified in the dictionary/table, the character will not be replaced.
+
+If you use a dictionary, you must use ascii codes instead of characters.
+
+#### Syntax
+
+string.translate(table)
+
+#### Parameter Values
+
+
+
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{table}	& 	\text{	Required. Either a dictionary, or a mapping table describing how to perform the replace} 
+\end{array}
+$$
+
+Example
+
+Use a mapping table to replace "S" with "P":
+
+```{python}
+txt = "Hello Sam!"
+mytable = txt.maketrans("S", "P")
+print(txt.translate(mytable))
+```
+
+Example
+
+Use a mapping table to replace many characters:
+
+```{python}
+txt = "Hi Sam!"
+x = "mSa"
+y = "eJo"
+mytable = txt.maketrans(x, y)
+print(txt.translate(mytable))
+```
+
+Example
+
+The third parameter in the mapping table describes characters that you want to remove from the string:
+
+```{python}
+txt = "Good night Sam!"
+x = "mSa"
+y = "eJo"
+z = "odnght"
+mytable = txt.maketrans(x, y, z)
+print(txt.translate(mytable))
+```
+
+Example
+
+The same example as above, but using a dictionary instead of a mapping table:
+
+```{python}
+txt = "Good night Sam!"
+mydict = {109: 101, 83: 74, 97: 111, 111: None, 100: None, 110: None, 103: None, 104: None, 116: None}
+print(txt.translate(mydict))
+```
+
+
+
+
+
+
+### zfill()
+
+
+#### <span style="color:orange"> Python String zfill() Method </span>
+
+
+Fill the string with zeros until it is 10 characters long:
+
+```{python}
+txt = "50"
+
+x = txt.zfill(10)
+
+print(x)
+```
+
+#### Definition and Usage
+
+The zfill() method adds zeros (0) at the beginning of the string, until it reaches the specified length.
+
+If the value of the len parameter is less than the length of the string, no filling is done.
+
+#### Syntax
+
+string.zfill(len)
+
+#### Parameter Values
+
+$$
+\begin{array}{c|c}
+\text{Parameter} &	\text{Description} \\ \hline
+\text{len}	& 	\text{	Required. A number specifying the desired length of the string} 
+\end{array}
+$$
+
+Example
+
+Fill the strings with zeros until they are 10 characters long:
+
+```{python}
+a = "hello"
+print(a.zfill(10))
+b = "welcome to the jungle"
+print(b.zfill(10))
+c = "10.000"
+print(c.zfill(10))
+```
+
+
+## Contact us
+
+Contact me at masoudfaridi@modares.ac.ir or masoud1faridi@gmail.com
+

@@ -1,0 +1,674 @@
+---
+title: "Python Cheat Sheets-0002-Strings-MasoudF"
+output: 
+  html_document:
+    code_folding: show
+    theme:
+      bg: "#202123"
+      fg: "#B8BCC2"
+      primary: "#EA80FC"
+      secondary: "#00DAC6"
+      base_font:
+        google: Prompt
+      heading_font:
+        google: Proza Libre
+---
+
+```{r setup, include=FALSE}
+if (requireNamespace("thematic")) 
+  thematic::thematic_rmd(font = "auto")
+library(reticulate)
+reticulate::use_python("C:/Program Files/Python310/python.exe")
+```
+
+## <span style="color:orange"> Python functions   </span> {.tabset .tabset-pills}
+
+
+### Dictionary Methods
+
+
+
+Python has a set of built-in methods that you can use on dictionaries.
+$$
+\begin{array}{c|l}
+\text{Method} & \text{	Description}  \\ \hline
+\text{clear()} & \text{	Removes all the elements from the dictionary}  \\
+\text{copy()} & \text{	Returns a copy of the dictionary}  \\
+\text{fromkeys()} & \text{	Returns a dictionary with the specified keys and value}  \\
+\text{get()} & \text{	Returns the value of the specified key}  \\
+\text{items()} & \text{	Returns a list containing a tuple for each key value pair}  \\
+\text{keys()} & \text{	Returns a list containing the dictionary's keys}  \\
+\text{pop()} & \text{	Removes the element with the specified key}  \\
+\text{popitem()} & \text{	Removes the last inserted key-value pair}  \\
+\text{setdefault()} & \text{	Returns the value of the specified key. If the key does not exist: insert the key, with the specified value }  \\
+\text{update()} & \text{	Updates the dictionary with the specified key-value pairs}  \\
+\text{values()} & \text{	Returns a list of all the values in the dictionary}  \\
+\end{array}
+$$
+
+
+
+### clear()
+
+#### <span style="color:orange">  Python Dictionary clear() Method </span>
+
+```{python}
+#Example
+#Remove all elements from the car list:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+car.clear()
+
+print(car)
+
+```
+
+#### <span style="color:orange"> Definition and Usage </span>
+
+The clear() method removes all the elements from a dictionary.
+
+#### <span style="color:orange"> Syntax </span>
+
+dictionary.clear()
+
+#### <span style="color:orange"> Parameter Values </span>
+
+No parameters
+
+
+### copy()
+
+
+#### <span style="color:orange"> Python Dictionary copy() Method </span>
+
+
+```{python}
+#Example
+#Copy the car dictionary:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.copy()
+
+print(x)
+
+```
+
+
+#### <span style="color:orange"> Definition and Usage </span>
+
+The copy() method returns a copy of the specified dictionary.
+
+
+#### <span style="color:orange"> Syntax </span>
+
+dictionary.copy()
+
+#### <span style="color:orange"> Parameter Values </span>
+
+No parameters
+
+
+
+
+###  fromkeys()
+
+
+#### <span style="color:orange"> Python Dictionary fromkeys() Method </span>
+
+
+
+```{python}
+#Example
+#Create a dictionary with 3 keys, all with the value 0:
+
+x = ('key1', 'key2', 'key3')
+y = 0
+
+thisdict = dict.fromkeys(x, y)
+
+print(thisdict)
+
+```
+
+
+#### <span style="color:orange">Definition and Usage  </span>
+
+The fromkeys() method returns a dictionary with the specified keys and the specified value.
+
+
+#### <span style="color:orange"> Syntax </span>
+
+dict.fromkeys(keys, value)
+
+#### <span style="color:orange"> Parameter Values </span>
+
+$$
+\begin{array}{c|l}
+\text{Parameter} & \text{Description}  \\ \hline
+\text{keys} & \text{Required. An iterable specifying the keys of the new dictionary}  \\
+\text{value} & \text{Optional. The value for all keys. Default value is None}
+\end{array}
+$$
+	
+	
+
+#### <span style="color:orange"> More Examples </span>
+
+
+```{python}
+#Example
+#Same example as above, but without specifying the value:
+
+x = ('key1', 'key2', 'key3')
+
+thisdict = dict.fromkeys(x)
+
+print(thisdict)
+
+```
+
+
+
+### get()
+
+
+#### <span style="color:orange"> Python Dictionary get() Method </span>
+
+
+```{python}
+#Example
+#Get the value of the "model" item:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.get("model")
+
+print(x)
+
+```
+
+
+#### <span style="color:orange"> Definition and Usage </span>
+
+The get() method returns the value of the item with the specified key.
+
+#### <span style="color:orange"> Syntax </span>
+
+dictionary.get(keyname, value)
+
+#### <span style="color:orange"> Parameter Values </span>
+
+
+	
+	Optional. A value to return if the specified key does not exist.
+Default value None
+$$
+\begin{array}{c|l}
+\text{Parameter} & \text{Description}  \\ \hline
+\text{keyname} & \text{Required. The keyname of the item you want to return the value from}  \\
+\text{value} & \text{Optional. A value to return if the specified key does not exist.
+Default value None} 
+\end{array}
+$$
+
+#### <span style="color:orange"> More Examples </span>
+
+```{python}
+#Example
+#Try to return the value of an item that do not exist:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.get("price", 15000)
+
+print(x)
+
+```
+
+
+
+### items() 
+
+
+#### <span style="color:orange">  Python Dictionary items() Method </span>
+
+```{python}
+#Example
+#Return the dictionary's key-value pairs:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.items()
+
+print(x)
+
+```
+
+
+#### <span style="color:orange"> Definition and Usage </span>
+
+The items() method returns a view object. The view object contains the key-value pairs of the dictionary, as tuples in a list.
+
+The view object will reflect any changes done to the dictionary, see example below.
+
+
+#### <span style="color:orange"> Syntax </span>
+
+dictionary.items()
+
+#### <span style="color:orange"> Parameter Values </span>
+
+No parameters
+
+#### <span style="color:orange">  </span>
+More Examples
+
+```{python}
+#Example
+#When an item in the dictionary changes value, the view object also gets updated:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.items()
+
+car["year"] = 2018
+
+print(x)
+
+```
+
+
+
+### keys()
+
+
+#### <span style="color:orange"> Python Dictionary keys() Method </span>
+
+```{python}
+#Example
+#Return the keys:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.keys()
+
+print(x)
+
+```
+
+
+#### <span style="color:orange"> Definition and Usage </span>
+
+The keys() method returns a view object. The view object contains the keys of the dictionary, as a list.
+
+The view object will reflect any changes done to the dictionary, see example below.
+
+#### <span style="color:orange"> Syntax </span>
+
+dictionary.keys()
+
+#### <span style="color:orange"> Parameter Values </span>
+
+No parameters
+
+#### <span style="color:orange"> More Examples </span>
+
+
+```{python}
+#Example
+#When an item is added in the dictionary, the view object also gets updated:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.keys()
+
+car["color"] = "white"
+
+print(x)
+
+```
+
+
+
+###  pop() 
+
+
+#### <span style="color:orange"> Python Dictionary pop() Method </span>
+
+```{python}
+#Example
+#Remove "model" from the dictionary:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+car.pop("model")
+
+print(car)
+
+```
+
+
+#### <span style="color:orange">Definition and Usage  </span>
+
+The pop() method removes the specified item from the dictionary.
+
+The value of the removed item is the return value of the pop() method, see example below.
+
+
+#### <span style="color:orange">Syntax  </span>
+
+dictionary.pop(keyname, defaultvalue)
+
+#### <span style="color:orange"> Parameter Values </span>
+
+
+	
+	
+
+$$
+\begin{array}{c|l}
+\text{Parameter} & \text{Description}  \\ \hline
+\text{keyname} & \text{Required. The keyname of the item you want to remove} \\
+\text{defaultvalue} & \text{Optional. A value to return if the specified key do not exist.} 
+\end{array}
+$$
+
+
+
+If this parameter is not specified, and the no item with the specified key is found, an error is raised
+
+#### <span style="color:orange"> More Examples </span>
+
+
+```{python}
+#Example
+#The value of the removed item is the return value of the pop() method:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.pop("model")
+
+print(x)
+
+```
+
+
+### popitem() 
+
+#### <span style="color:orange">Python Dictionary popitem() Method  </span>
+
+```{python}
+#Example
+#Remove the last item from the dictionary:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+car.popitem()
+
+print(car)
+
+```
+
+
+#### <span style="color:orange"> Definition and Usage </span>
+
+The popitem() method removes the item that was last inserted into the dictionary. In versions before 3.7, the popitem() method removes a random item.
+
+The removed item is the return value of the popitem() method, as a tuple, see example below.
+
+#### <span style="color:orange"> Syntax </span>
+
+dictionary.popitem()
+
+#### <span style="color:orange"> Parameter Values </span>
+
+No parameters
+
+
+#### <span style="color:orange"> More Examples </span>
+
+```{python}
+#Example
+#The removed item is the return value of the pop() method:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.popitem()
+
+print(x)
+
+
+```
+
+
+
+###  setdefault() 
+
+
+#### <span style="color:orange">  Python Dictionary setdefault() Method </span>
+
+
+```{python}
+#Example
+#Get the value of the "model" item:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.setdefault("model", "Bronco")
+
+print(x)
+
+```
+
+
+#### <span style="color:orange">Definition and Usage  </span>
+
+The setdefault() method returns the value of the item with the specified key.
+
+If the key does not exist, insert the key, with the specified value, see example below
+
+#### <span style="color:orange">Syntax  </span>
+
+dictionary.setdefault(keyname, value)
+
+#### <span style="color:orange"> Parameter Values </span>
+
+
+
+$$
+\begin{array}{c|l}
+\text{Parameter} & \text{Description}  \\ \hline
+\text{keyname} & \text{Required. The keyname of the item you want to return the value from} \\
+\text{value} & \text{Optional.} \\
+ & \text{If the key exist, this parameter has no effect.} \\
+& \text{If the key does not exist, this value becomes the key's value
+Default value None}
+\end{array}
+$$
+	
+	
+
+
+
+#### <span style="color:orange"> More Examples </span>
+
+
+```{python}
+#Example
+#Get the value of the "color" item, if the "color" item does not exist, insert "color" with the value "white":
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.setdefault("color", "white")
+
+print(x)
+
+```
+
+
+### update()
+
+
+#### <span style="color:orange"> Python Dictionary update() Method </span>
+
+
+
+```{python}
+#Example
+#Insert an item to the dictionary:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+car.update({"color": "White"})
+
+print(car)
+
+```
+
+
+#### <span style="color:orange"> Definition and Usage </span>
+
+The update() method inserts the specified items to the dictionary.
+
+The specified items can be a dictionary, or an iterable object with key value pairs.
+
+#### <span style="color:orange"> Syntax </span>
+
+dictionary.update(iterable)
+
+#### <span style="color:orange"> Parameter Values </span>
+
+$$
+\begin{array}{c|l}
+\text{Parameter} & \text{Description}  \\ \hline
+\text{iterable} & \text{A dictionary or an iterable object with key value pairs, that will be inserted to the dictionary} 
+\end{array}
+$$
+
+
+### values()
+
+#### <span style="color:orange"> Python Dictionary values() Method </span>
+
+
+```{python}
+#Example
+#Return the values:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.values()
+
+print(x)
+
+```
+
+
+#### <span style="color:orange"> Definition and Usage </span>
+
+The values() method returns a view object. The view object contains the values of the dictionary, as a list.
+
+The view object will reflect any changes done to the dictionary, see example below.
+
+#### <span style="color:orange"> Syntax </span>
+
+dictionary.values()
+
+#### <span style="color:orange"> Parameter Values </span>
+
+No parameters
+
+#### <span style="color:orange"> More Examples </span>
+
+```{python}
+#Example
+#When a values is changed in the dictionary, the view object also gets updated:
+
+car = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+x = car.values()
+
+car["year"] = 2018
+
+print(x)
+
+
+```
+
+
+
+
+## Contact us
+
+Contact me at masoudfaridi@modares.ac.ir or masoud1faridi@gmail.com
+
