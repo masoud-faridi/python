@@ -24,3 +24,6 @@ zp_longest=itertools.zip_longest(letters,[True,True,False,False,True])
 list(zp_longest)
 letters_3=[i for i,j in itertools.zip_longest(letters,[True,True,False,False,True]) if j]
 letters_3
+
+
+
